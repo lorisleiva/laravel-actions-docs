@@ -24,14 +24,34 @@ module.exports = {
                     ['/', 'Introduction'],
                     '/installation',
                     '/basic-usage',
-                ]
+                    '/actions-attributes',
+                    '/dependency-injections',
+                    '/authorisation',
+                    '/validation',
+                ],
+            },
+            {
+                title: 'Actions as...',
+                collapsable: false,
+                sidebarDepth: 2,
+                children: [
+                    '/actions-as-objects',
+                    '/actions-as-jobs',
+                    '/actions-as-listeners',
+                    '/actions-as-controllers',
+                    '/actions-as-commands',
+                ],
             },
             {
                 title: 'Advanced',
                 collapsable: false,
-                sidebarDepth: 1,
-                children: [ /* ... */ ]
-            }
+                sidebarDepth: 2,
+                children: [
+                    'registering-actions',
+                    'action-running-as',
+                    'nested-actions',
+                ],
+            },
         ],
     }
 }

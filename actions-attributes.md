@@ -1,0 +1,3 @@
+# Actions' attributes
+
+TODO
