@@ -1,0 +1,24 @@
+{
+  "name": "laravel-actions-docs",
+  "version": "1.0.0",
+  "description": "Documentation for Laravel Actions",
+  "dependencies": {},
+  "devDependencies": {
+    "vuepress": "^1.4.1"
+  },
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lorisleiva/laravel-actions-docs.git"
+  },
+  "author": "Loris Leiva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lorisleiva/laravel-actions-docs/issues"
+  },
+  "homepage": "https://github.com/lorisleiva/laravel-actions-docs#readme"
+}
