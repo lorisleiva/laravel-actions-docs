@@ -1,5 +1,7 @@
 # Actions as objects
 
+## How are attributes filled?
+
 When running actions as plain PHP objects, their attributes have to be filled manually using the various helper methods mentioned in the "[Actions' attributes](/actions-attributes)" page. For example:
 
 ```php
@@ -34,7 +36,9 @@ PublishANewArticle::run([
 ]);
 ```
 
-Note that, whatever is returned by the `handle` method will be returned by the `run` method.
+## Access the returned value
+
+Whatever is returned by the `handle` method will be returned by the `run` method.
 
 ```php
 // Assuming the `PublishANewArticle` returns the article that
