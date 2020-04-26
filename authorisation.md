@@ -2,7 +2,7 @@
 
 No matter how actions are run, you can define some authorisation logic directly within the action to make sure that it is performed under valid circumstances. For example, this could ensure the authenticated user has the appropriate role before continuing.
 
-Note that, just like in a Laravel FormRequest, the authorisation logic happens before the validation logic ([see next section](/validation)).
+Note that, just like in a Laravel FormRequest, the authorisation logic occurs before the validation logic ([see next page](/validation)).
 
 ::: tip
 The page "[The lifecycle of an action](/action-lifecycle)" provides a handy summary of all methods that an Action will call before and after executing the `handle` method.
