@@ -11,7 +11,6 @@ module.exports = {
         docsRepo: 'lorisleiva/laravel-actions-docs',
         editLinks: true,
         editLinkText: 'Edit this page',
-        displayAllHeaders: true,
         nav: [
             { text: 'Documentation', link: '/' },
         ],
@@ -19,7 +18,6 @@ module.exports = {
             {
                 title: 'Getting Started',
                 collapsable: false,
-                sidebarDepth: 2,
                 children: [
                     ['/', 'Introduction'],
                     '/installation',
@@ -33,7 +31,6 @@ module.exports = {
             {
                 title: 'Actions as...',
                 collapsable: false,
-                sidebarDepth: 2,
                 children: [
                     '/actions-as-objects',
                     '/actions-as-jobs',
@@ -45,7 +42,6 @@ module.exports = {
             {
                 title: 'Advanced',
                 collapsable: false,
-                sidebarDepth: 2,
                 children: [
                     'registering-actions',
                     'action-running-as',
