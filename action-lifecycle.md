@@ -34,11 +34,11 @@ Similar to the `prepareForValidation` method but different methods will be trigg
 - `asController`
 - `asCommand`
 
-### `authorize`
+### `authorize` and `failedAuthorization`
 
 Can be used to provide authorisation logic. See the "[Authorisation](/authorisation)" page.
 
-### `rules` and other validation methods
+### `rules`, `failedValidation` and other validation methods
 
 Can be used to provide validation logic. See the "[Validation](/validation)" page.
 
