@@ -26,7 +26,7 @@ class PublishANewArticle extends Action implements ShouldQueue
 
 Note that you can also use the `dispatchNow` method to force a queueable action to be executed immediately.
 
-## Access the returned value
+## Accessing the returned value
 
 When dispatching a job immediately (either by using `dispatchNow` or the `sync` queue driver), then the result of the action will be returned.
 
@@ -35,4 +35,15 @@ $article = PublishANewArticle::dispatchNow([
     'title' => 'My blog post',
     'body' => 'Lorem ipsum.',
 ]);
+```
+
+## Registering middleware
+
+You can register job middleware using the `middleware` method.
+
+```php
+public function middleware()
+{
+    return [new RateLimited];
+}
 ```
