@@ -43,4 +43,4 @@ PublishANewArticle::registerCommand();
 
 ### Alternative for "Registering routes directly within actions"
 
-When disabling the registration of actions, you will not be able to define your routes within the static `routes` method. Instead, you will need to define them in your routes files. See "[Registering actions in routes files](/actions-as-controllers#registering-actions-in-routes-files)".
+When disabling the registration of actions, you will not be able to define your routes within the static `routes` method. Instead, you will need to define them in your routes files. See "[Registering actions in routes files](/actions-as-controllers.html#registering-actions-in-routes-files)".

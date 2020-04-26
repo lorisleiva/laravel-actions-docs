@@ -2,10 +2,10 @@
 
 No matter how actions are run, you can define some authorisation logic directly within the action to make sure that it is performed under valid circumstances. For example, this could ensure the authenticated user has the appropriate role before continuing.
 
-Note that, just like in a Laravel FormRequest, the authorisation logic occurs before the validation logic ([see next page](/validation)).
+Note that, just like in a Laravel FormRequest, the authorisation logic occurs before the validation logic ([see next page](/validation.html)).
 
 ::: tip
-The page "[The lifecycle of an action](/action-lifecycle)" provides a handy summary of all methods that an Action will call before and after executing the `handle` method.
+The page "[The lifecycle of an action](/action-lifecycle.html)" provides a handy summary of all methods that an Action will call before and after executing the `handle` method.
 :::
 
 ## The `authorize` method
@@ -22,7 +22,7 @@ public function authorize()
 The `authorize` method is optional and defaults to `true` when not provided.
 
 ::: tip
-It is worth noting that, just like the `handle` method, the `authorize` method [supports dependency injections](/dependency-injections).
+It is worth noting that, just like the `handle` method, the `authorize` method [supports dependency injections](/dependency-injections.html).
 :::
 
 Whenever the `authorize` method returns `false`, it will throw an `AuthorizationException` resulting in a 403 status code when used in the HTTP layer (as a controller for example).

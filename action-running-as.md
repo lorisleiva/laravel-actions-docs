@@ -32,13 +32,13 @@ public function asController(Request $request)
 If you want to prepare the data before running the action (and thus also before validating the data), you can use the `prepareForValidation` method. This method will be run before the `as...` methods, no matter how the action is running as.
 
 ::: tip
-It is worth noting that, just like the `handle` method, the `prepareForValidation` method and the `as...` methods [support dependency injections](/dependency-injections).
+It is worth noting that, just like the `handle` method, the `prepareForValidation` method and the `as...` methods [support dependency injections](/dependency-injections.html).
 :::
 
 ::: tip
-The page "[The lifecycle of an action](/action-lifecycle)" provides a handy summary of all methods that an Action will call before and after executing the `handle` method.
+The page "[The lifecycle of an action](/action-lifecycle.html)" provides a handy summary of all methods that an Action will call before and after executing the `handle` method.
 :::
 
 ::: warning
-These before hooks will be executed at every run. This means you cannot use the `asController` method to register your middleware. You need to [use the `middleware` method](/actions-as-controllers#registering-middleware) instead.
+These before hooks will be executed at every run. This means you cannot use the `asController` method to register your middleware. You need to [use the `middleware` method](/actions-as-controllers.html#registering-middleware) instead.
 :::

@@ -2,7 +2,7 @@
 
 ## How are attributes filled?
 
-When running actions as plain PHP objects, their attributes have to be filled manually using the various helper methods mentioned in the "[Actions' attributes](/actions-attributes)" page. For example:
+When running actions as plain PHP objects, their attributes have to be filled manually using the various helper methods mentioned in the "[Actions' attributes](/actions-attributes.html)" page. For example:
 
 ```php
 $action = new PublishANewArticle;

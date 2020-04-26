@@ -36,7 +36,7 @@ By default, any action that defines the `$commandSignature` static property will
 ::: warning
 This will work out-of-the-box for actions defined in the `app/Actions` folder (or subfolders). If some of your actions live outside this folder, you will need to call `Actions::paths([...])` in a service provider to let the library know where to find your actions in order to register these routes.
 
-See the "[Registering actions](/registering-actions)" page for more details. 
+See the "[Registering actions](/registering-actions.html)" page for more details. 
 
 Alternatively, when not automatically registered, you can manually register an action by calling the `registerCommand` static method in your `routes/console.php` file.
 
@@ -70,14 +70,14 @@ class PublishANewArticle extends Action
 ```
 
 ::: tip
-It is worth noting that, just like the `handle` method, the `asCommand` method [support dependency injections](/dependency-injections).
+It is worth noting that, just like the `handle` method, the `asCommand` method [support dependency injections](/dependency-injections.html).
 :::
 
 ::: tip
 Also note that there exists a `as...` method for every way an action can run as.
 Namely, `asObject`, `asJob`, `asListener`, `asController` and `asCommand`.
 
-See "[The before hooks](/action-running-as#the-before-hooks)" for more details.
+See "[The before hooks](/action-running-as.html#the-before-hooks)" for more details.
 :::
 
 ## Console output and exit code

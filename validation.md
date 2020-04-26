@@ -2,10 +2,10 @@
 
 No matter how an action is run, you can define some validation logic directly within the action to ensure the provided attributes are what they are expected to be.
 
-Note that, just like in a Laravel FormRequest, the validation logic occurs after the authorisation logic ([see previous page](/authorisation)).
+Note that, just like in a Laravel FormRequest, the validation logic occurs after the authorisation logic ([see previous page](/authorisation.html)).
 
 ::: tip
-The page "[The lifecycle of an action](/action-lifecycle)" provides a handy summary of all methods that an Action will call before and after executing the `handle` method.
+The page "[The lifecycle of an action](/action-lifecycle.html)" provides a handy summary of all methods that an Action will call before and after executing the `handle` method.
 :::
 
 ## Defining the validation rules
@@ -49,7 +49,7 @@ public function afterValidator($validator)
 ```
 
 ::: tip
-It is worth noting that, just like the `handle` method, the `rules`, `withValidator` and `afterValidator` methods [support dependency injections](/dependency-injections).
+It is worth noting that, just like the `handle` method, the `rules`, `withValidator` and `afterValidator` methods [support dependency injections](/dependency-injections.html).
 :::
 
 If you want to validate some data directly within the `handle` method, you can use the `validate` method.
@@ -112,5 +112,5 @@ public function attributes()
 ```
 
 ::: tip
-It is worth noting that, just like the `handle` method, the `messages`, `attributes` methods [support dependency injections](/dependency-injections).
+It is worth noting that, just like the `handle` method, the `messages`, `attributes` methods [support dependency injections](/dependency-injections.html).
 :::
