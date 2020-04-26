@@ -8,7 +8,7 @@ Note that, just like in a Laravel FormRequest, the validation logic occurs after
 The page "[The lifecycle of an action](/action-lifecycle)" provides a handy summary of all methods that an Action will call before and after executing the `handle` method.
 :::
 
-## Define the validation rules
+## Defining the validation rules
 
 Just like in a Laravel FormRequest, you can define your validation logic using the `rules` and `withValidator` methods.
 
@@ -65,7 +65,7 @@ public function handle()
 
 This will validate the provided rules against the action's attributes.
 
-## Handle failed validation
+## Handling failed validation
 
 Whenever validation fails, it will throw an `ValidationException` resulting in a 422 status code when used in the HTTP layer (as a controller for example).
 
@@ -78,7 +78,7 @@ protected function failedValidation()
 }
 ```
 
-## Access validated data
+## Accessing validated data
 
 If you want to access all attributes that have been validated prior to reaching the `handle` method, you can use `$this->validated()` instead of `$this->all()`.
 
@@ -95,7 +95,7 @@ public function handle()
 }
 ```
 
-## Customise validation texts
+## Customising validation texts
 
 You can customise the validation texts using the `messages` and `attributes` methods.
 

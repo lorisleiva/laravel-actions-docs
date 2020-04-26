@@ -36,7 +36,7 @@ PublishANewArticle::run([
 ]);
 ```
 
-## Access the returned value
+## Accessing the returned value
 
 Whatever is returned by the `handle` method will be returned by the `run` method.
 
