@@ -71,7 +71,7 @@ Route::middleware('web')
 Route::post('articles', 'PublishANewArticle');
 ```
 
-## Registering routes directly in actions.
+## Registering routes directly in actions
 
 Another way to register actions as controllers is to define the routes directly within the actions using the static `routes` method.
 
