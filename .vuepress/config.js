@@ -2,7 +2,7 @@ var emoji = 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/2
 
 module.exports = {
     title: 'Laravel Actions',
-    description: 'Documentation for Laravel Actions',
+    description: 'Laravel components that take care of one specific task',
     head: [
         ['link', { rel: 'icon', href: emoji }],
     ],
@@ -53,5 +53,13 @@ module.exports = {
                 ],
             },
         ],
-    }
+    },
+    domain: 'https://laravelactions.com/',
+    plugins: {
+        'seo': {
+            type: _ => 'website',
+            description: (_, $site) => $site.description,
+            image: (_, $site) => $site.domain + 'hero.png',
+        }
+    },
 }
