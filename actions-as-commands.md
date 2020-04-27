@@ -61,7 +61,7 @@ class PublishANewArticle extends Action
         $this->published_at = $command->confirm('Publish immediately?') ? now() : null;
 
         if (! $command->confirm('Are you sure?')) {
-            return false;
+            throw new Exception('Operation cancelled');
         }
     }
 
