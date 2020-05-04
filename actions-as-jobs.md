@@ -2,13 +2,26 @@
 
 ## How are attributes filled?
 
-Similarly to actions as objects, attributes are filled manually when you dispatch the action.
+Similarly to [actions as objects](/actions-as-objects.html), attributes are filled manually when you dispatch the action.
 
 ```php
 PublishANewArticle::dispatch([
     'title' => 'My blog post',
     'body' => 'Lorem ipsum.',
 ]);
+```
+
+If you have defined a `getAttributesFromConstructor` method or property, this will also be applicable to jobs. For example:
+
+```php
+// If you have the following constructor mapping.
+class PublishANewArticle extends Action
+{
+    protected $getAttributesFromConstructor = ['title', 'body'];
+}
+
+// Then you can dispatch the action as a job like this.
+PublishANewArticle::dispatch('My blog post', 'Lorem ipsum.');
 ```
 
 ## Queueable actions
