@@ -65,6 +65,17 @@ $action = new PublishANewArticle('My blog post', 'Lorem ipsum.');
 $action->run();
 ```
 
+::: tip
+If you are using PHPStorm, you can use annotations to update the signature of the static run method. That way, you can still benefit from the autocompletion feature.
+
+```php
+/**
+ * @method mixed run(string $title, string $description)
+ */
+ class MyAction extends Action {...}
+```
+:::
+
 ## Handling attributes
 
 When running actions as plain PHP objects, their attributes can be manually updated using the various helper methods mentioned in the "[Actions' attributes](/actions-attributes.html)" page. For example:
