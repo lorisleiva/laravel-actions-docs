@@ -19,9 +19,9 @@ class PublishANewArticle extends Action
     public function getAttributesFromCommand(Command $command): array
     {
         return [
-            'title' => $this->argument('title'),
-            'published_at' => $this->option('publish') ? now() : null,
-            'tags' => $this->option('tags'),
+            'title' => $command->argument('title'),
+            'published_at' => $command->option('published') ? now() : null,
+            'tags' => $command->option('tags'),
         ];
     }
 
