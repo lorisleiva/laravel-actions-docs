@@ -93,7 +93,7 @@ class GetArticlesFromAuthor extends Action
 ::: warning
 This will work out-of-the-box for actions defined in the `app/Actions` folder (or subfolders). If some of your actions live outside this folder, you will need to call `Actions::paths([...])` in a service provider to let the library know where to find your actions in order to register these routes.
 
-See the "[Registering actions](/registering-actions.html)" page for more details. 
+See the "[Registering actions](./registering-actions.html)" page for more details. 
 :::
 
 ## Registering middleware

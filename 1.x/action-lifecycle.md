@@ -6,7 +6,7 @@
 
 ### `registered`
 
-The static `registered` method is triggered once the Action has been [automatically registered](/registering-actions.html). Thus, this method will run at most once per class.
+The static `registered` method is triggered once the Action has been [automatically registered](./registering-actions.html). Thus, this method will run at most once per class.
 
 ### `initialized`
 
@@ -36,11 +36,11 @@ Similar to the `prepareForValidation` method but different methods will be trigg
 
 ### `authorize` and `failedAuthorization`
 
-Can be used to provide authorisation logic. See the "[Authorisation](/authorisation.html)" page.
+Can be used to provide authorisation logic. See the "[Authorisation](./authorisation.html)" page.
 
 ### `rules`, `failedValidation` and other validation methods
 
-Can be used to provide validation logic. See the "[Validation](/validation.html)" page.
+Can be used to provide validation logic. See the "[Validation](./validation.html)" page.
 
 ### `handle`
 
@@ -48,8 +48,8 @@ The main method that defines the logic of your action to be executed. This is th
 
 ### `response` (controllers only)
 
-Can be used to map the result of the action into a HTTP response. See "[Returning HTTP responses](/actions-as-controllers.html#returning-http-responses)".
+Can be used to map the result of the action into a HTTP response. See "[Returning HTTP responses](./actions-as-controllers.html#returning-http-responses)".
 
 ### `consoleOutput` (commands only)
 
-Can be used to customise what to display to the console after executing the action. See "[Console output and exit code](/actions-as-commands.html#console-output-and-exit-code)".
+Can be used to customise what to display to the console after executing the action. See "[Console output and exit code](./actions-as-commands.html#console-output-and-exit-code)".

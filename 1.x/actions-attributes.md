@@ -20,8 +20,8 @@ $action->title = 'My blog post';            // Set an attribute.
 
 Depending on how an action is ran, its attributes are filled with the relevant information available. For example, as a controller, an action’s attributes will contain all of the input from the request. For more information see:
 
-- [How do attributes get filled as objects?](/actions-as-objects.html)
-- [How do attributes get filled as jobs?](/actions-as-jobs.html)
-- [How do attributes get filled as listeners?](/actions-as-listeners.html)
-- [How do attributes get filled as controllers?](/actions-as-controllers.html)
-- [How do attributes get filled as commands?](/actions-as-commands.html)
+- [How do attributes get filled as objects?](./actions-as-objects.html)
+- [How do attributes get filled as jobs?](./actions-as-jobs.html)
+- [How do attributes get filled as listeners?](./actions-as-listeners.html)
+- [How do attributes get filled as controllers?](./actions-as-controllers.html)
+- [How do attributes get filled as commands?](./actions-as-commands.html)

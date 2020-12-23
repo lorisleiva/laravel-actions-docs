@@ -2,7 +2,7 @@
 
 ## How are attributes filled?
 
-Similarly to [actions as objects](/actions-as-objects.html), attributes are filled manually when you dispatch the action.
+Similarly to [actions as objects](./actions-as-objects.html), attributes are filled manually when you dispatch the action.
 
 ```php
 PublishANewArticle::dispatch([
