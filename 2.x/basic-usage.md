@@ -2,7 +2,7 @@
 
 First, start by creating a simple PHP class that handles your task. For the sake of this tutorial, let's create a simple class that updates a user's password.
 
-I like to place these under an `app/Actions` folder or — if my app is separated into modules — under `app/MyModule/Actions`.
+You can organise these actions however you want. Personally, I like to place these under an `app/Actions` folder or — if my app is separated into modules — under `app/MyModule/Actions`.
 
 ```php
 namespace App\Authentication\Actions;
@@ -36,9 +36,9 @@ class UpdateUserPassword
 }
 ```
 
-## Run as an object
+## Running as an object
 
-The `AsAction` trait provides a couple method that help you resolve the class from the container and execute it.
+The `AsAction` trait provides a couple of methods that help you resolve the class from the container and execute it.
 
 ```php
 // Equivalent to "app(UpdateUserPassword::class)".
@@ -48,15 +48,15 @@ UpdateUserPassword::make();
 UpdateUserPassword::run($user, 'secret');
 ```
 
-## Run as a controller
+## Running as a controller
 
-Now, let's use our action as a controller. First, we need to register it in our routes file just we would register any invokable controller.
+Now, let's use our action as a controller. First, we need to register it in our routes file just like we would register any invokable controller.
 
 ```php
 Route::put('auth/password', UpdateUserPassword::class)->middleware('auth');
 ```
 
-Then, all we need to do is implement the `asController` method so we can translate the request data into the arguments our action expect (here, a user object and a password).
+Then, all we need to do is implement the `asController` method so we can translate the request data into the arguments our action expect — in this case, a user object and a password.
 
 ```php
 class UpdateUserPassword
@@ -71,15 +71,19 @@ class UpdateUserPassword
 
     public function asController(Request $request)
     {
-        $user = $request->user();
-        $this->handle($user, $request->get('password'))
-        
+        $this->handle(
+            $request->user(), 
+            $request->get('password')
+        );
+
         return redirect()->back();
     }
 }
 ```
 
-And just like that, you're using your custom PHP class as a controller. But what about authorization and validation? Shouldn't we make sure the password is confirmed and the old password was provided? Sure, let's do that.
+And just like that, you're using your custom PHP class as a controller. But what about authorization and validation? Shouldn't we make sure the new password was confirmed and the old password provided? Sure, let's do that.
+
+## Adding controller validation
 
 Instead of injecting the regular `Request` class, we can either inject a custom `FormRequest` class or inject the `ActionRequest` class which will use the action itself to resolve authorization and validation.
 
@@ -90,11 +94,7 @@ class UpdateUserPassword
 {
     use AsAction;
 
-    public function handle(User $user, string $newPassword)
-    {
-        $user->password = Hash::make($newPassword);
-        $user->save();
-    }
+    // ...
 
     public function rules()
     {
@@ -115,9 +115,11 @@ class UpdateUserPassword
 
     public function asController(ActionRequest $request)
     {
-        $user = $request->user();
-        $this->handle($user, $request->get('password'))
-        
+        $this->handle(
+            $request->user(), 
+            $request->get('password')
+        );
+
         return redirect()->back();
     }
 }
@@ -125,9 +127,11 @@ class UpdateUserPassword
 
 And that's it! Now, when we reach the `asController` method, we know for sure the validation was successful and we can access the validated data using `$request->validated()` like we're used to.
 
-## Run as a command
+## Running as a command
 
-Before wrapping up this tutorial, let's see how we could run our action as a command. Similarly to what we did earlier, we simply need to implement the `asCommand` method to transform our command line arguments and options into a user object and a password. This methods accepts a `Command` instead as an argument which can be used to both read input and write output.
+Before wrapping up this tutorial, let's see how we could run our action as a command.
+
+Similarly to what we did earlier, we simply need to implement the `asCommand` method to transform our command line arguments and options into a user object and a password. This methods accepts a `Command` as an argument which can be used to both read input and write output.
 
 Additionally we need to provide the command signature and description via the `$commandSignature` and `$commandDescription` properties.
 
@@ -139,11 +143,6 @@ class UpdateUserPassword
     public string $commandSignature = 'user:update-password {user_id} {password}';
     public string $commandDescription = 'Updates the password a user.';
 
-    public function handle(User $user, string $newPassword) {/* ... */}
-    public function rules() {/* ... */}
-    public function withValidator(Validator $validator, ActionRequest $request) {/* ... */}
-    public function asController(ActionRequest $request) {/* ... */}
-
     public function asCommand(Command $command)
     {
         $user = User::findOrFail($command->argument('user_id'));
@@ -152,6 +151,8 @@ class UpdateUserPassword
 
         $command->line(sprintf('Password updated for %s.', $user->name));
     }
+
+    // ...
 }
 ```
 
@@ -172,8 +173,10 @@ class Kernel extends ConsoleKernel
 
 ## Next steps
 
-Hopefully, this little tutorial helped to see what this package can achieve for you. On top of controllers and commands, Laravel Actions also supports jobs and listeners following a very similar usage — by implementing the `asJob` and `asListener` methods.
+Hopefully, this little tutorial helped to see what this package can achieve for you. On top of controllers and commands, Laravel Actions also supports jobs and listeners following the same conventions — by implementing the `asJob` and `asListener` methods.
 
-If you like learning by reading code, the "Learn with examples" section is for you. Each example provide the code of one action, how it's being used or registered and a brief description explaining its purpose.
+Better yet, **you custom PHP class is never directly used as a controller, job, command or listener**. Instead it is wrapped in an appropriate decorator based on what it is running as. This means you have full control of your actions and you don't need to worry about cross-pattern conflicts.
 
-Be sure to also check the "Guide" and "References" sections to gain more knowledge on what you can do with actions and to refer back to methods made available to you.
+If you like learning by reading code, the "[Learn with examples](./examples/generate-reservation-code)" section is for you. Each example provide the code of one action, how it's being used or registered and a brief description explaining its purpose.
+
+Be sure to also check the "[Guide](./one-class-one-task)" and "[References](./as-object)" sections to gain more knowledge on what you can do with actions and to refer back to methods made available to you.
