@@ -155,6 +155,21 @@ class UpdateUserPassword
 }
 ```
 
+Now we can register it in our console `Kernel` like so:
+
+```php
+namespace App\Console;
+
+class Kernel extends ConsoleKernel
+{
+    protected $commands = [
+        UpdateUserPassword::class,
+    ];
+    
+    // ...
+}
+```
+
 ## Next steps
 
 Hopefully, this little tutorial helped to see what this package can achieve for you. On top of controllers and commands, Laravel Actions also supports jobs and listeners following a very similar usage — by implementing the `asJob` and `asListener` methods.

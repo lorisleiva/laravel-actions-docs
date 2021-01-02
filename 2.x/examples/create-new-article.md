@@ -57,7 +57,7 @@ CreateNewArticle::run($author, [
 
 It is also important to note that the authorization and validation logic will only be applied to the action when it is running as a controller.
 
-## Using as a controller
+## Registering as a controller
 
 To use as a controller simply register the action in your routes file.
 
