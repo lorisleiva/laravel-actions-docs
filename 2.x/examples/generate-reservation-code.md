@@ -27,7 +27,7 @@ class GenerateReservationCode
 }
 ```
 
-## Usage as object
+## Using as an object
 
 In a real-life application this action would typically be nested inside another action that create a new reservations.
 
@@ -47,7 +47,7 @@ class CreateNewReservation
 }
 ```
 
-## Usage as fake
+## Using as a fake instance
 
 The advantage of using `::make()` or `::run()` is that it will resolve the action from the container. That means we can then easily swap its implementation for a mock when testing.
 
