@@ -75,7 +75,7 @@ module.exports = {
                     title: 'Learn with examples',
                     collapsable: false,
                     children: [
-                        '/2.x/todo-example',
+                        '/2.x/examples/generate-reservation-code',
                     ],
                 },
                 {
