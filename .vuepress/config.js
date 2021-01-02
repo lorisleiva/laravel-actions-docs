@@ -76,6 +76,11 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/2.x/examples/generate-reservation-code',
+                        '/2.x/examples/get-user-profile',
+                        '/2.x/examples/create-new-article',
+                        '/2.x/examples/export-user-data',
+                        '/2.x/examples/demote-team-membership',
+                        '/2.x/examples/synchronize-contacts-from-google',
                     ],
                 },
                 {
