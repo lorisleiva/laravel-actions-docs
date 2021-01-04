@@ -33,13 +33,13 @@ class MyFirstAction
 }
 ```
 
-<small>Note that Laravel Actions uses a trait instead inheritance to be as unintrusive as possible. If you prefer inheritance, you can use the equivalent `extends \Lorisleiva\Actions\Action` instead. If you don't prefer inheritance, you might be interested in "[More granular traits](./granular-traits)".</small>
+<small>Note that Laravel Actions uses a trait instead of inheritance to be as unintrusive as possible. If you prefer inheritance, you can use the equivalent `extends \Lorisleiva\Actions\Action`. If you don't prefer inheritance, you might be interested in "[More granular traits](./granular-traits)".</small>
 
 ## Running as an object
 
 Because you have complete control over your action classes, you don't really need Laravel Actions to run it as an object.
 
-However, Laravel Actions provides two helper static methods for you: `make` and `run`. These make it easier for you to instantiate and execute your action respectively.
+However, Laravel Actions provides two helper static methods for you: `make` and `run`. These make it easier for you to **instantiate** and **execute** your action respectively.
 
 ```php
 // Equivalent to "app(MyFirstAction::class)".
@@ -113,7 +113,7 @@ app/
 
 ## How does it work?
 
-So far, we've only seen how to run actions as objects, but you might be wondering how you classes are going to be executed as controllers, jobs, etc.
+So far, we've only seen how to run actions as objects, but you might be wondering how your classes are going to be executed as controllers, jobs, etc.
 
 Laravel Actions does that by adding a special interceptor on the container that recognise how the class is being run. When it does — and that's the important part — **it wraps your PHP class inside a decorator that will delegate to your action when it needs to**. Each design pattern as their own decorator — e.g. `ControllerDecorator`, `JobDecorator` and so on. That means you still have full control over your PHP class and need not to worry about conflict between various design patterns.
 
