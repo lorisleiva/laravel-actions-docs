@@ -55,8 +55,16 @@ It is good practice to use these methods to instantiate an Action to ensure it i
 
 ## Recommended conventions
 
-TODO:
+Even though you have full control on how to implement your actions, a few minor conventions can help you stay consistent when organising your application. Here are two recommended ones.
+
+### Use an `Actions` folder
+
+TODO
 - `app/Actions/Module` or `app/Module/Actions`
+
+### Start with a verb
+
+TODO
 - Actions name start with a verb and explicitely describe the task it handles
 
 ## How does it work?
