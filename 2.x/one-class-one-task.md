@@ -57,16 +57,66 @@ It is good practice to use these methods to instantiate an Action to ensure it i
 
 Even though you have full control on how to implement your actions, a few minor conventions can help you stay consistent when organising your application. Here are two recommended ones.
 
-### Use an `Actions` folder
-
-TODO
-- `app/Actions/Module` or `app/Module/Actions`
-
 ### Start with a verb
 
-TODO
-- Actions name start with a verb and explicitely describe the task it handles
+Name your action classes as **small explicit sentences that start with a verb**. For example, an action that "sends an email to the user to reset its password" could be named `SendResetPasswordEmail`.
+
+That way, your folder structure almost becomes an exhaustive dictionary of everything your application provides. This brings us to the second recommended convention.
+
+### Use an `Actions` folder
+
+Create an `app/Actions` folder and group your actions inside this folder by topic. Here's a simple example.
+
+```
+app/
+├── Actions/
+│   ├── Authentication/
+│   │   ├── LoginUser.php
+│   │   ├── RegisterUser.php
+│   │   ├── ResetUserPassword.php
+│   │   └── SendResetPasswordEmail.php
+│   ├── Leads/
+│   │   ├── BulkRemoveLead.php
+│   │   ├── CreateNewLead.php
+│   │   ├── GetLeadDetails.php
+│   │   ├── MarkLeadAsCustomer.php
+│   │   ├── MarkLeadAsLost.php
+│   │   ├── RemoveLead.php
+│   │   ├── SearchLeadsForUser.php
+│   │   └── UpdateLeadDetails.php
+│   └── Settings/
+│       ├── GetUserSettings.php
+│       ├── UpdateUserAvatar.php
+│       ├── UpdateUserDetails.php
+│       ├── UpdateUserPassword.php
+│       └── DeleteUserAccount.php
+├── Models/
+└── ...
+```
+
+Alternatively, if your application is already divided in topics — or modules — you can create an `Actions` folder under each of these modules. For example:
+
+```
+app/
+├── Authentication/
+│   ├── Actions/
+│   ├── Models/
+│   └── ...
+├── Leads/
+│   ├── Actions/
+│   ├── Models/
+│   └── ...
+└── Settings/
+    ├── Actions/
+    └── ...
+```
 
 ## How does it work?
 
-TODO: brief explanation of decorators and link to extra page.
+So far, we've only seen how to run actions as objects, but you might be wondering how you classes are going to be executed as controllers, jobs, etc.
+
+Laravel Actions does that by adding a special interceptor on the container that recognise how the class is being run. When it does — and that's the important part — **it wraps your PHP class inside a decorator that will delegate to your action when it needs to**. Each design pattern as their own decorator — e.g. `ControllerDecorator`, `JobDecorator` and so on. That means you still have full control over your PHP class and need not to worry about conflict between various design patterns.
+
+Check out the "[How does it work?](./how-does-it-work)" page if you're interested in learning more about this.
+
+Now, let's move on to [controllers](./register-as-controller).
