@@ -57,6 +57,24 @@ class CreateNewArticle
 
 Note that, in this example, you loose the ability to run `CreateNewArticle::run($user, 'My title', 'My content')`.
 
+## Assigning controller middleware
+
+Instead of — or in addition to — defining your middleware in your routes file, you may also define them directly in the action using the `getControllerMiddleware` method.
+
+```php
+class CreateNewArticle
+{
+    use AsAction;
+
+    public function getControllerMiddleware(): array
+    {
+        return ['auth', MyCustomMiddleware::class];
+    }
+
+    // ...
+}
+```
+
 ## Providing a different response for JSON and HTML
 
 Oftentimes, you'll need your controllers — and therefore actions — to be available both as a web page and as a JSON API endpoint. You'll likely endup doing something like this a little bit everywhere.
