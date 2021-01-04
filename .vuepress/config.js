@@ -95,6 +95,7 @@ module.exports = {
                         '/2.x/execute-as-commands',
                         '/2.x/mock-and-test',
                         '/2.x/granular-traits',
+                        '/2.x/how-does-it-work',
                     ],
                 },
                 {
