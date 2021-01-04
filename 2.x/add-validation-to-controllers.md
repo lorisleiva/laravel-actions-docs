@@ -63,7 +63,7 @@ public function getAuthorizationFailure(): void
 
 ## Adding validation rules
 
-TODO
+You may implement the `rules` method to provide the rules to validate against the request data.
 
 ```php
 public function rules(): array
@@ -75,7 +75,7 @@ public function rules(): array
 }
 ```
 
-TODO
+You may then use the `validated` method inside your `asController` method to access the request data that went through your validation rules.
 
 ```php
 public function asController(ActionRequest $request)
@@ -86,7 +86,9 @@ public function asController(ActionRequest $request)
 
 ## Custom validation logic
 
-TODO
+In addition to your validation `rules`, you may provide the `withValidator` method to provide custom validation logic.
+
+It works just like in a `FormRequest` and provides the validator as a first argument allowing you to add "after validation callbacks".
 
 ```php
 use Illuminate\Validation\Validator;
@@ -101,7 +103,9 @@ public function withValidator(Validator $validator, ActionRequest $request): voi
 }
 ```
 
-TODO
+Very often, when you use `withValidator`, you just want to add a `after` callback on the validator.
+
+Laravel Actions conveniently allows you to implement the `afterValidator` method directly to avoid the nested callback.
 
 ```php
 use Illuminate\Validation\Validator;
@@ -114,7 +118,9 @@ public function afterValidator(Validator $validator, ActionRequest $request): vo
 }
 ```
 
-TODO
+Alternatively, if you want full control over the validator that will be generated, you may implement the `getValidator` method instead.
+
+Implementing this method will ignore any other validation methods such as `rules`, `withValidator` and `afterValidator`.
 
 ```php
 use Illuminate\Validation\Factory;
@@ -131,7 +137,7 @@ public function getValidator(Factory $factory, ActionRequest $request): Validato
 
 ## Prepare for validation
 
-TODO
+Just like in a `FormRequest`, you may provide the `prepareForValidation` method to insert some custom logic before both authorization and validation are triggered.
 
 ```php
 public function prepareForValidation(ActionRequest $request): void
@@ -142,7 +148,7 @@ public function prepareForValidation(ActionRequest $request): void
 
 ## Custom validation messages
 
-TODO
+You may also customise the messages of your validation rules and provide some human-friendly mapping to your request attributes by implementing the `getValidationMessages` and `getValidationAttributes` methods respectively.
 
 ```php
 public function getValidationMessages(): array
@@ -152,11 +158,7 @@ public function getValidationMessages(): array
         'body.required' => 'Is that really all you have to say?',
     ];
 }
-```
 
-TODO
-
-```php
 public function getValidationAttributes(): array
 {
     return [
@@ -165,6 +167,8 @@ public function getValidationAttributes(): array
     ];
 }
 ```
+
+Note that providing the `getValidator` method will ignore both of these methods too.
 
 ## Custom validation failure
 
@@ -193,4 +197,4 @@ public function getValidationFailure(): void
 }
 ```
 
-TODO: Transition with next page
+Okay enough about controllers, let's now see how we can [dispatch our actions as asynchronous jobs](./dispatch-jobs).
