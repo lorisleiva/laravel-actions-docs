@@ -52,10 +52,10 @@ public function authorize(ActionRequest $request): Response
 }
 ```
 
-Just like in a `FormRequest`, it will return a `Illuminate\Auth\Access\AuthorizationException` if authorization fails. You may provide your own authorization failure logic by implementing the `getAuthorizationFailure` method.
+Just like in a `FormRequest`, it will return an `AuthorizationException` if authorization fails. You may provide your own authorization failure logic by implementing the `getAuthorizationFailure` method.
 
 ```php
-public function getAuthorizationFailure(): Response
+public function getAuthorizationFailure(): void
 {
     throw new MyCustomAuthorizationException();
 }
@@ -63,30 +63,134 @@ public function getAuthorizationFailure(): Response
 
 ## Adding validation rules
 
-TODO: rules
-TODO: $request->validated()
+TODO
+
+```php
+public function rules(): array
+{
+    return [
+        'title' => ['required', 'min:8'],
+        'body' => ['required', IsValidMarkdown::class],
+    ];
+}
+```
+
+TODO
+
+```php
+public function asController(ActionRequest $request)
+{
+    $request->validated();
+}
+```
 
 ## Custom validation logic
 
 TODO
-withValidator
-afterValidator
-getValidator
+
+```php
+use Illuminate\Validation\Validator;
+
+public function withValidator(Validator $validator, ActionRequest $request): void
+{
+    $validator->after(function (Validator $validator) use ($request) {
+        if (! Hash::check($request->get('current_password'), $request->user()->password)) {
+            $validator->errors()->add('current_password', 'Wrong password.');
+        }
+    });
+}
+```
+
+TODO
+
+```php
+use Illuminate\Validation\Validator;
+
+public function afterValidator(Validator $validator, ActionRequest $request): void
+{
+    if (! Hash::check($request->get('current_password'), $request->user()->password)) {
+        $validator->errors()->add('current_password', 'Wrong password.');
+    }
+}
+```
+
+TODO
+
+```php
+use Illuminate\Validation\Factory;
+use Illuminate\Validation\Validator;
+
+public function getValidator(Factory $factory, ActionRequest $request): Validator
+{
+    return $factory->make($request->only('title', 'body'), [
+        'title' => ['required', 'min:8'],
+        'body' => ['required', IsValidMarkdown::class],
+    ]);
+}
+```
 
 ## Prepare for validation
 
 TODO
-prepareForValidation
+
+```php
+public function prepareForValidation(ActionRequest $request): void
+{
+    $request->merge(['some' => 'additional data']);
+}
+```
 
 ## Custom validation messages
 
 TODO
-getValidationMessages
-getValidationAttributes
+
+```php
+public function getValidationMessages(): array
+{
+    return [
+        'title.required' => 'Looks like you forgot the title.',
+        'body.required' => 'Is that really all you have to say?',
+    ];
+}
+```
+
+TODO
+
+```php
+public function getValidationAttributes(): array
+{
+    return [
+        'title' => 'headline',
+        'body' => 'content',
+    ];
+}
+```
 
 ## Custom validation failure
 
-TODO
-getValidationRedirect
-getValidationErrorBag
-getValidationFailure
+Just like in a `FormRequest`, it will return an `ValidationException` if validation fails. This exception will, by default, redirect to the previous page and use the `default` error bag on the validator. You may customise both of these behaviours by implementing the `getValidationRedirect` and `getValidationErrorBag` methods respectively.
+
+```php
+use Illuminate\Routing\UrlGenerator;
+
+public function getValidationRedirect(UrlGenerator $url): string
+{
+    return $url->to('/my-custom-redirect-url');
+}
+
+public function getValidationErrorBag(): string
+{
+    return 'my_custom_error_bag';
+}
+```
+
+Alternatively, you may override the validation failure that is being thrown altogether by implementing the `getValidationFailure` method.
+
+```php
+public function getValidationFailure(): void
+{
+    throw new MyCustomValidationException();
+}
+```
+
+TODO: Transition with next page

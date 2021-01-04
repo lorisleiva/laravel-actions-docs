@@ -24,13 +24,13 @@ class CreateNewArticle
         return in_array($request->user()->role, ['author', 'admin']);
     }
 
-    public function rules(ActionRequest $request): array
+    public function rules(): array
     {
         return [
             'title' => ['required', 'min:8'],
             'body' => ['required', IsValidMarkdown::class],
             'published' => ['required', 'boolean'],
-        ]
+        ];
     }
 
     public function asController(ActionRequest $request): Article
