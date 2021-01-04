@@ -118,7 +118,7 @@ module.exports = {
         'seo': {
             type: _ => 'website',
             description: (_, $site) => $site.description,
-            image: (_, $site) => $site.domain + 'hero.png',
+            image: (_, $site) => $site.domain + 'hero2-social.jpg',
         }
     },
 }
