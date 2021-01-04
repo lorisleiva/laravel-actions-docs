@@ -12,7 +12,7 @@ Route::post('/users/{user}/articles', CreateNewArticle::class);
 
 Because you have full control on how your actions are implemented, you need to translate the received request into a call to your `handle` method.
 
-You can use the `asController` method to define that logic. Its parameters will be resolved using route model binding just like it would in a controller method.
+You can use the `asController` method to define that logic. Its parameters will be resolved using route model binding just like it would in a controller.
 
 ```php
 class CreateNewArticle
@@ -30,14 +30,14 @@ class CreateNewArticle
             $user,
             $request->get('title'),
             $request->get('body')
-        )
+        );
 
         return redirect()->route('articles.show', [$article]);
     }
 }
 ```
 
-If you're only planning on using your action as controller, you can omit the `asController` method and use the `handle` method directly as an invokable controller.
+If you're only planning on using your action as a controller, you can omit the `asController` method and use the `handle` method directly as an invokable controller.
 
 ```php
 class CreateNewArticle
@@ -59,11 +59,45 @@ Note that, in this example, you loose the ability to run `CreateNewArticle::run(
 
 ## Providing a different response for JSON and HTML
 
-TODO:
-jsonResponse
-htmlResponse
+Oftentimes, you'll need your controllers — and therefore actions — to be available both as a web page and as a JSON API endpoint. You'll likely endup doing something like this a little bit everywhere.
 
-## The __invoke method
+```php
+if ($request->expectsJson()) {
+    return new ArticleResource($article);
+} else {
+    return redirect()->route('articles.show', [$article]);
+}
+```
 
-TODO
-__invoke
+That's why Laravel Actions recognises two helper methods `jsonResponse` and `htmlResponse` that you can use to separate the response based on the request expecting JSON or not.
+
+These methods receive as a first argument the return value of the `asController` method and, as a second argument, the `Request` object.
+
+```php
+class CreateNewArticle
+{
+    use AsAction;
+
+    public function handle(User $user, string $title, string $body): Article
+    {
+        return $user->articles()->create(compact('title', 'body'));
+    }
+
+    public function asController(User $user, Request $request): Article
+    {
+        return $this->handle($user, $request->get('title'), $request->get('body'));
+    }
+
+    public function htmlResponse(Article $article): Response
+    {
+        return redirect()->route('articles.show', [$article]);
+    }
+
+    public function jsonResponse(Article $article): ArticleResource
+    {
+        return new ArticleResource($article);
+    }
+}
+```
+
+Now that we're familiar on how to use actions as controllers, let's go one step further and see how Laravel Actions can handle [authorization and validation when being used as a controller](./add-validation-to-controllers).
