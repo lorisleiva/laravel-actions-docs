@@ -1,5 +1,164 @@
 # Dispatch asynchronous jobs
 
+## From job to action
+
+When it comes to dispatching your actions as jobs, implementing the `handle` method should typically be enough. The reason for that is you'll likely want to use the same arguments when running an action as an object (`MyAction::run`) and when dispatching it as a job (`MyAction::dispatch`).
+
+For example, say you have an action that sends a report email to every member of a team.
+
+```php
+class SendTeamReportEmail
+{
+    use AsAction;
+
+    public function handle(Team $team): void
+    {
+        // Prepare report and send it to all $team->users.
+    }
+}
+```
+
+Using this `handle` method, you'll be dispatch it as a job by running `SendTeamReportEmail::dispatch($someTeam)`.
+
+However, if the logic around dispatching a job differs from the `handle` method, then you may implement the `asJob` method.
+
+For example, we might want to send a full report only when dispatched as a job.
+
+```php
+class SendTeamReportEmail
+{
+    use AsAction;
+
+    public function handle(Team $team, bool $fullReport = false): void
+    {
+        // Prepare report and send it to all $team->users.
+    }
+
+    public function asJob(Team $team): void
+    {
+        $this->handle($team, true);
+    }
+}
+```
+
+## Dispatching jobs
+
+### Asynchronously
+
+Dispatching jobs asynchronously can be done using the `dipatch` method.
+
+```php
+SendTeamReportEmail::dispatch($team);
+```
+
+Behind the scene, this will create a new `JobDecorator` and wrap your action inside it.
+
+This means you cannot dispatch a job using the `dispatch` helper method.
+
+```php
+// This will NOT work. ❌
+dispatch(SendTeamReportEmail::make());
+```
+
+If you must use the `dispatch` helper method, then you'll need to use `makeJob` instead and pass it the action's arguments.
+
+```php
+// This will work. ✅
+dispatch(SendTeamReportEmail::makeJob($team));
+```
+
+You may also use the `dispatchIf` and `dispatchUnless` method to dispatch a job under a certain condition.
+
+```php
+SendTeamReportEmail::dispatchIf($team->hasAddon('reports'), $team);
+
+SendTeamReportEmail::dispatchUnless($team->missesAddon('reports'), $team);
+```
+
+### Synchronously
+
+Although you can use `SendTeamReportEmail::run($team)` to execute an action immediately, you may also dispatch a synchronous job using the `dispatchNow` or `dispatchSync` methods.
+
+```php
+SendTeamReportEmail::dispatchNow($team);
+
+SendTeamReportEmail::dispatchSync($team);
+```
+
+### After the response was sent
+
+You may delay the execution of an action after the response was sent to the user by using the `dispatchAfterResponse` method.
+
+```php
+SendTeamReportEmail::dispatchAfterResponse($team);
+```
+
+### With chain
+
+Finally, you main chain multiple jobs together by using the `withChain` method. Make sure to use the `makeJob` method to instantiate the chained jobs — otherwise your action will not be wrapped in a `JobDecorator`.
+
+```php
+$chain = [
+    OptimizeTeamReport::makeJob($team),
+    SendTeamReportEmail::makeJob($team),
+];
+
+CreateNewTeamReport::withChain($chain)->dispatch($team);
+```
+
+Note that you can achieve the same result by using the `chain` method on the `Bus` Facade.
+
+```php
+use Illuminate\Support\Facades\Bus;
+
+Bus::chain([
+    CreateNewTeamReport::makeJob($team),
+    OptimizeTeamReport::makeJob($team),
+    SendTeamReportEmail::makeJob($team),
+])->dispatch();
+```
+
+## Configuring jobs
+
 TODO
 
+```php
+public function handle(): void
+{
+    // ...
+}
+```
+
+## Registering job middleware
+
+TODO
+
+```php
+public function handle(): void
+{
+    // ...
+}
+```
+
+## Unique jobs
+
+TODO
+
+```php
+public function handle(): void
+{
+    // ...
+}
+```
+
+## Asserting jobs were pushed
+
+TODO
 Mention job assertions in tests
+
+```php
+public function handle(): void
+{
+    // ...
+}
+```
