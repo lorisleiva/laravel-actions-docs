@@ -232,6 +232,33 @@ public function getJobUniqueVia()
 
 Finally, note that Laravel now has a baked-in `WithoutOverlapping` job middleware that can limit the concurrent processing of a job. If that's all you're trying to achieve, then it might be worth considering using this middleware instead of the `ShouldBeUnique` trait.
 
+## Job tags and display name
+
+If you're using Horizon, you might be interested in providing custom tags for a job to monitor it and even change its display name.
+
+You may do this in an action by implementing the `getJobTags` and `getJobDisplayName` methods respectively.
+
+```php
+class SendTeamReportEmail
+{
+    use AsAction;
+
+    public function getJobTags(Team $team): array
+    {
+        return ['report', 'team:'.$team->id];
+    }
+
+    public function getJobDisplayName(): string
+    {
+        return 'Send team report email';
+    }
+
+    // ...
+}
+```
+
+Note that you can get the job's arguments from both these methods' arguments.
+
 ## Asserting jobs were pushed
 
 TODO
