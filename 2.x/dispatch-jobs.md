@@ -261,12 +261,79 @@ Note that you can get the job's arguments from both these methods' arguments.
 
 ## Asserting jobs were pushed
 
-TODO
-Mention job assertions in tests
+When dispatching actions as job, you might want to use `Queue::fake()` to assert that a certain job was pushed on your tests.
+
+For example, this is how you would assert that a regular job was pushed.
 
 ```php
-public function handle(): void
-{
-    // ...
-}
+Queue::fake();
+
+// Do something...
+
+Queue::assertPushed(SendTeamReportEmail::class);
 ```
+
+However since the action itself is wrapped inside a `JobDecorator` that acts as a job, you cannot do the same with an action. Instead, you would need to assert that a `JobDecorator` was pushed and then add a callback that ensure the `JobDecorator` is decorating your action.
+
+```php
+Queue::fake();
+
+// Do something...
+
+Queue::assertPushed(JobDecorator::class, function (JobDecorator $job) {
+    return $job->decorates(SendTeamReportEmail::class);
+});
+```
+
+Admittedly, this is a lot less easy to read and pretty inconvenient if we need to do this in all of our tests. That's why Laravel actions provides static helper methods on the action itself.
+
+To assert that a certain action was dispatched as a job, all you need to do is use the `assertPushed` static method directly on the action. The example above can then be rewritten like this:
+
+```php
+Queue::fake();
+
+// Do something...
+
+SendTeamReportEmail::assertPushed();
+```
+
+Much cleaner isn't it?
+
+You may also provide a number to assert a job was dispatched a certain amount of times.
+
+```php
+SendTeamReportEmail::assertPushed(3);
+```
+
+Or provide a callback to assert a job matching this condition was dispatched. The callback will receive the following four arguments:
+1. The action itself. Here it would be an instance of `SendTeamReportEmail`.
+2. The job's arguments. That is, the arguments you provided when calling `SendTeamReportEmail::dispatch(...)`.
+3. The `JobDecorator` that decorates your action.
+4. The name of the queue that was used.
+
+```php
+SendTeamReportEmail::assertPushed(function ($action, $arguments) {
+    return ($team = $arguments[0])->hasAddon('reports');
+});
+```
+
+Or you may use both a number of dispatch and a callback.
+
+```php
+SendTeamReportEmail::assertPushed(3, function ($action, $arguments) {
+    return ($team = $arguments[0])->hasAddon('reports');
+});
+```
+
+Finally, you may also use `assertNotPushed` and/or `assertPushedOn` to assert a job was not dispatched and/or that it was dispatched on a particular queue respectively.
+
+```php
+SendTeamReportEmail::assertNotPushed();
+SendTeamReportEmail::assertNotPushed($callback);
+SendTeamReportEmail::assertPushedOn($queue);
+SendTeamReportEmail::assertPushedOn($queue, $numberOfDispatch);
+SendTeamReportEmail::assertPushedOn($queue, $callback);
+SendTeamReportEmail::assertPushedOn($queue, $numberOfDispatch, $callback);
+```
+
+In the next page, we'll see [how to make our actions listen for events](./listen-for-events).
