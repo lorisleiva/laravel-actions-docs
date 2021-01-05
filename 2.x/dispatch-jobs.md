@@ -147,7 +147,7 @@ public function configureJob(JobDecorator $job): void
 }
 ```
 
-Alternatively, if you only want to set the connection and/or queue for your action, you may use the `jobConnection` and `jobQueue` properties respectively.
+Alternatively, if you only want to set the connection and/or queue for your action, you may use the `jobConnection` and/or `jobQueue` properties respectively.
 
 ```php
 class SendTeamReportEmail
@@ -163,25 +163,74 @@ class SendTeamReportEmail
 
 ## Registering job middleware
 
-TODO
+You may also attach job middleware to your actions by returning them from the `getJobMiddleware` method.
 
 ```php
-public function handle(): void
+public function getJobMiddleware(): array
 {
-    // ...
+    return [new RateLimited('backups')];
 }
 ```
 
 ## Unique jobs
 
-TODO
+The Laravel framework provides a `ShouldBeUnique` trait that you can use on a job to ensure it runs only once for a given identifier and for a given amount of time. With a traditional job, it looks like this.
 
 ```php
-public function handle(): void
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+
+class SendTeamReportEmail implements ShouldQueue, ShouldBeUnique
 {
+    public Team $team;
+    public int $uniqueFor = 3600;
+
+    public function uniqueId()
+    {
+        return $this->team->id;
+    }
+
     // ...
 }
 ```
+
+With Laravel Actions, you can still achieve this by adding the `ShouldBeUnique` trait to your action.
+
+- To define the unique identifier you may use the `$jobUniqueId` property or the `getJobUniqueId` method.
+- To define the amount of time in which a job should stay unique, you may use the `$jobUniqueFor` property or the `getJobUniqueFor` method.
+
+When you use either of these methods, their arguments will be the same as the job's arguments themselves.
+
+For instance, the example above can be rewriten as an action like so:
+
+```php
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+
+class SendTeamReportEmail implements ShouldBeUnique
+{
+    use AsAction;
+
+    public int $jobUniqueFor = 3600;
+
+    public function getJobUniqueId(Team $team)
+    {
+        return $this->team->id;
+    }
+
+    // ...
+}
+```
+
+By default, the default cache driver will be used to obtain the lock and therefore maintain the unicity of the jobs being dispatched. You may specify which cache driver to use for a particular action by implementing the `getJobUniqueVia` method.
+
+```php
+public function getJobUniqueVia()
+{
+    return Cache::driver('redis');
+}
+```
+
+Finally, note that Laravel now has a baked-in `WithoutOverlapping` job middleware that can limit the concurrent processing of a job. If that's all you're trying to achieve, then it might be worth considering using this middleware instead of the `ShouldBeUnique` trait.
 
 ## Asserting jobs were pushed
 
