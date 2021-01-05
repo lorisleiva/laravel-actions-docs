@@ -120,11 +120,43 @@ Bus::chain([
 
 ## Configuring jobs
 
-TODO
+When dispatching a job, you'll receive a `PendingDispatch` allowing you to chain any job configuration you need.
 
 ```php
-public function handle(): void
+SendTeamReportEmail::dispatch($team)
+    ->onConnection('my_connection')
+    ->onQueue('my_queue')
+    ->through(['my_middleware'])
+    ->chain(['my_chain'])
+    ->delay(60);
+}
+```
+
+If you want to configure these options in the action itself so they are used by default whenever you dispatch it, you may use the `configureJob` method. It will provide the `JobDecorator` as a first argument which you can use to chain the same job configurations as above.
+
+```php
+use Lorisleiva\Actions\Decorators\JobDecorator;
+
+public function configureJob(JobDecorator $job): void
 {
+    $job->onConnection('my_connection')
+        ->onQueue('my_queue')
+        ->through(['my_middleware'])
+        ->chain(['my_chain'])
+        ->delay(60);
+}
+```
+
+Alternatively, if you only want to set the connection and/or queue for your action, you may use the `jobConnection` and `jobQueue` properties respectively.
+
+```php
+class SendTeamReportEmail
+{
+    use AsAction;
+
+    public string $jobConnection = 'my_connection';
+    public string $jobQueue = 'my_queue';
+
     // ...
 }
 ```
