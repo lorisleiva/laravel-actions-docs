@@ -118,4 +118,42 @@ class CreateNewArticle
 }
 ```
 
+## Registering routes directly in the action
+
+Now this is not for everybody but if you really want to take this "unit of life" to the next level, you may define your routes directly in the action by using the `routes` static method. It provides the `Router` as a first argument.
+
+```php
+class GetArticlesFromAuthor
+{
+    use AsAction;
+
+    public static function routes(Router $router)
+    {
+        $router->get('author/{author}/articles', static::class);
+    }
+
+    public function handle(User $author)
+    {
+        return $author->articles;
+    }
+}
+```
+
+However, in order for this to work, you need to tell Laravel Actions where your actions are located so it can loop through your static `routes` methods. For that all you need to do is call the `registerRoutes` method of the `Actions` Facade on a service provider. It will look recursively into the folders provided.
+
+```php
+// Register routes from actions in "app/Actions" (default).
+Actions::registerRoutes();
+
+// Register routes from actions in "app/MyCustomActionsFolder".
+Actions::registerRoutes('app/MyCustomActionsFolder');
+
+// Register routes from actions in multiple folders.
+Actions::registerRoutes([
+    'app/Authentication',
+    'app/Billing',
+    'app/TeamManagement',
+]);
+```
+
 Now that we're familiar on how to use actions as controllers, let's go one step further and see how Laravel Actions can handle [authorization and validation when being used as a controller](./add-validation-to-controllers).
