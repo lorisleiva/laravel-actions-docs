@@ -168,7 +168,7 @@ You may also attach job middleware to your actions by returning them from the `g
 ```php
 public function getJobMiddleware(): array
 {
-    return [new RateLimited('backups')];
+    return [new RateLimited('reports')];
 }
 ```
 

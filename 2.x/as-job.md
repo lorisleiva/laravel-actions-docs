@@ -147,85 +147,125 @@ SendTeamReportEmail::assertPushedOn('reports', 3, $callback);
 *Lists all methods and properties recognised and used by the `JobDecorator`.*
 
 ### `asJob`
-TODO
+Called when dispatched as a job. Uses the `handle` method directly when no `asJob` method exists.
 
 ```php
-TODO
+class SendTeamReportEmail
+{
+    use AsAction;
+
+    public function handle(Team $team, bool $fullReport = false): void
+    {
+        // Prepare report and send it to all $team->users.
+    }
+
+    public function asJob(Team $team): void
+    {
+        $this->handle($team, true);
+    }
+}
 ```
 
 ### `getJobMiddleware`
-TODO
+Adds job middleware directly in the action.
 
 ```php
-TODO
+public function getJobMiddleware(): array
+{
+    return [new RateLimited('reports')];
+}
 ```
 
 ### `configureJob`
-TODO
+Defines the `JobDecorators`'s option directly in the action.
 
 ```php
-TODO
-```
+use Lorisleiva\Actions\Decorators\JobDecorator;
 
-### `$jobQueue`
-TODO
-
-```php
-TODO
+public function configureJob(JobDecorator $job): void
+{
+    $job->onConnection('my_connection')
+        ->onQueue('my_queue')
+        ->through(['my_middleware'])
+        ->chain(['my_chain'])
+        ->delay(60);
+}
 ```
 
 ### `$jobConnection`
-TODO
+Defines the connection of the `JobDecorator`. Can also be set using `configureJob`.
 
 ```php
-TODO
+public string $jobConnection = 'my_connection';
+```
+
+### `$jobQueue`
+Defines the queue of the `JobDecorator`. Can also be set using `configureJob`.
+
+```php
+public string $jobQueue = 'my_queue';
 ```
 
 ### `getJobDisplayName`
-TODO
+Customises the display name of the `JobDecorator`. It provides the same arguments as the `asJob` method.
 
 ```php
-TODO
+public function getJobDisplayName(): string
+{
+    return 'Send team report email';
+}
 ```
 
 ### `getJobTags`
-TODO
+Adds some tags to the `JobDecorator`. It provides the same arguments as the `asJob` method.
 
 ```php
-TODO
+public function getJobTags(Team $team): array
+{
+    return ['report', 'team:'.$team->id];
+}
 ```
 
 ### `getJobUniqueId`
-TODO
+Defines the unique key when using the `ShouldBeUnique` interface. It provides the same arguments as the `asJob` method.
 
 ```php
-TODO
+public function getJobUniqueId(Team $team)
+{
+    return $this->team->id;
+}
 ```
 
 ### `$jobUniqueId`
-TODO
+Same as `getJobUniqueId` but as a property.
 
 ```php
-TODO
+public string $jobUniqueId = 'some_static_key';
 ```
 
 ### `getJobUniqueFor`
-TODO
+Define the amount of time in which a job should stay unique when using the `ShouldBeUnique` interface. It provides the same arguments as the `asJob` method.
 
 ```php
-TODO
+public function getJobUniqueFor(Team $team)
+{
+    return $this->team->role === 'premium' ? 1800 : 3600;
+}
 ```
 
 ### `$jobUniqueFor`
-TODO
+Same as `getJobUniqueFor` but as a property.
 
 ```php
-TODO
+public int $jobUniqueFor = 3600;
 ```
 
 ### `getJobUniqueVia`
-TODO
+Defines the cache driver to use to obtain the lock and therefore maintain the unicity of the jobs being dispatched. Defaults to: the default cache driver.
 
 ```php
-TODO
+public function getJobUniqueVia()
+{
+    return Cache::driver('redis');
+}
 ```
