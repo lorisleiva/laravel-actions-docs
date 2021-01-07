@@ -1,7 +1,7 @@
 # As job
 
 ## Method provided
-*Lists all method provided by the trait.*
+*Lists all methods provided by the trait.*
 
 ### `dispatch`
 TODO
@@ -88,7 +88,7 @@ TODO
 ```
 
 ## Method used
-*Lists all method or properties recognised and used by the `JobDecorator`.*
+*Lists all methods and properties recognised and used by the `JobDecorator`.*
 
 ### `asJob`
 TODO

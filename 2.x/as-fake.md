@@ -1,20 +1,58 @@
 # As fake
 
 ## Method provided
-*Lists all method provided by the trait.*
+*Lists all methods provided by the trait.*
 
-### `method`
+### `mock`
 TODO
 
 ```php
 TODO
 ```
 
+### `partialMock`
+TODO
 
-## Method used
-*Lists all method recognised and used by the `PatternDecorator`.*
+```php
+TODO
+```
 
-### `method`
+### `spy`
+TODO
+
+```php
+TODO
+```
+
+### `shouldRun`
+TODO
+
+```php
+TODO
+```
+
+### `shouldNotRun`
+TODO
+
+```php
+TODO
+```
+
+### `allowToRun`
+TODO
+
+```php
+TODO
+```
+
+### `isFake`
+TODO
+
+```php
+TODO
+```
+
+### `clearFake`
 TODO
 
 ```php

@@ -1,20 +1,65 @@
 # As command
 
-## Method provided
-*Lists all method provided by the trait.*
+## Method used
+*Lists all methods and properties recognised and used by the `CommandDecorator`.*
 
-### `method`
+### `asCommand`
 TODO
 
 ```php
 TODO
 ```
 
+### `getCommandSignature`
+TODO
 
-## Method used
-*Lists all method recognised and used by the `PatternDecorator`.*
+```php
+TODO
+```
 
-### `method`
+### `$commandSignature`
+TODO
+
+```php
+TODO
+```
+
+### `getCommandDescription`
+TODO
+
+```php
+TODO
+```
+
+### `$commandDescription`
+TODO
+
+```php
+TODO
+```
+
+### `getCommandHelp`
+TODO
+
+```php
+TODO
+```
+
+### `$commandHelp`
+TODO
+
+```php
+TODO
+```
+
+### `isCommandHidden`
+TODO
+
+```php
+TODO
+```
+
+### `$commandHidden`
 TODO
 
 ```php

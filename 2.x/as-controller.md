@@ -1,7 +1,7 @@
 # As controller
 
 ## Method provided
-*Lists all method provided by the trait.*
+*Lists all methods provided by the trait.*
 
 ### `__invoke`
 Executes the action by delegating immediately to the `handle` method.
@@ -45,7 +45,7 @@ class MyAction
 ```
 
 ## Method used
-*Lists all method recognised and used by the `ControllerDecorator` and `ActionRequest`.*
+*Lists all methods recognised and used by the `ControllerDecorator` and `ActionRequest`.*
 
 ### `asController`
 TODO
