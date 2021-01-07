@@ -4,57 +4,85 @@
 *Lists all methods provided by the trait.*
 
 ### `mock`
-TODO
+Swaps the action with a mock.
 
 ```php
-TODO
+FetchContactsFromGoogle::mock()
+    ->shouldReceive('handle')
+    ->with(42)
+    ->andReturn(['Loris', 'Will', 'Barney']);
 ```
 
 ### `partialMock`
-TODO
+Swaps the action with a partial mock. In the example below, only the `fetch` method is mocked.
 
 ```php
-TODO
+FetchContactsFromGoogle::partialMock()
+    ->shouldReceive('fetch')
+    ->with('some_google_identifier')
+    ->andReturn(['Loris', 'Will', 'Barney']);
 ```
 
 ### `spy`
-TODO
+Swaps the action with a spy.
 
 ```php
-TODO
+$spy = FetchContactsFromGoogle::spy()
+    ->allows('handle')
+    ->andReturn(['Loris', 'Will', 'Barney']);
+
+// ...
+
+$spy->shouldHaveReceived('handle')->with(42);
 ```
 
 ### `shouldRun`
-TODO
+Helper method adding an expectation on the `handle` method.
 
 ```php
-TODO
+FetchContactsFromGoogle::shouldRun();
+
+// Equivalent to:
+FetchContactsFromGoogle::mock()->shouldReceive('handle');
 ```
 
 ### `shouldNotRun`
-TODO
+Helper method adding an expectation on the `handle` method.
 
 ```php
-TODO
+FetchContactsFromGoogle::shouldNotRun();
+
+// Equivalent to:
+FetchContactsFromGoogle::mock()->shouldNotReceive('handle');
 ```
 
 ### `allowToRun`
-TODO
+Helper method allowing the `handle` method on a spy.
 
 ```php
-TODO
+$spy = FetchContactsFromGoogle::allowToRun()
+    ->andReturn(['Loris', 'Will', 'Barney']);
+
+// ...
+
+$spy->shouldHaveReceived('handle')->with(42);
 ```
 
 ### `isFake`
-TODO
+Whether the action has been swapped for a fake instance.
 
 ```php
-TODO
+FetchContactsFromGoogle::isFake(); // false
+FetchContactsFromGoogle::mock();
+FetchContactsFromGoogle::isFake(); // true
 ```
 
 ### `clearFake`
-TODO
+Clear the action's fake instance if any.
 
 ```php
-TODO
+FetchContactsFromGoogle::mock();
+FetchContactsFromGoogle::isFake(); // true
+FetchContactsFromGoogle::clearFake();
+FetchContactsFromGoogle::isFake(); // false
 ```
