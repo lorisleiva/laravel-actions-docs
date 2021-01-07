@@ -1,6 +1,6 @@
 # Listen for events
 
-## Registering as a listener
+## Registering the listener
 
 The register your action as an event listener, simply register it in your `EventServiceProvider` just like any other listener.
 
