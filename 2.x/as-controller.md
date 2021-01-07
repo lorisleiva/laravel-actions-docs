@@ -45,9 +45,128 @@ class MyAction
 ```
 
 ## Method used
-*Lists all method recognised and used by the `ControllerDecorator`.*
+*Lists all method recognised and used by the `ControllerDecorator` and `ActionRequest`.*
 
-### `method`
+### `asController`
+TODO
+
+```php
+TODO
+```
+
+### `getControllerMiddleware`
+TODO
+
+```php
+TODO
+```
+
+### `prepareForValidation`
+TODO
+
+```php
+TODO
+```
+
+### `authorize`
+TODO
+
+```php
+TODO
+```
+
+### `rules`
+TODO
+
+```php
+TODO
+```
+
+### `withValidator`
+TODO
+
+```php
+TODO
+```
+
+### `afterValidator`
+TODO
+
+```php
+TODO
+```
+
+### `getValidator`
+TODO
+
+```php
+TODO
+```
+
+### `getValidationData`
+TODO
+
+```php
+TODO
+```
+
+### `getValidationMessages`
+TODO
+
+```php
+TODO
+```
+
+### `getValidationAttributes`
+TODO
+
+```php
+TODO
+```
+
+### `getValidationFailure`
+TODO
+
+```php
+TODO
+```
+
+### `getValidationRedirect`
+TODO
+
+```php
+TODO
+```
+
+### `getValidationErrorBag`
+TODO
+
+```php
+TODO
+```
+
+### `getAuthorizationFailure`
+TODO
+
+```php
+TODO
+```
+
+### `jsonResponse`
+TODO
+
+```php
+TODO
+```
+
+### `htmlResponse`
+TODO
+
+```php
+TODO
+```
+
+### `routes`
 TODO
 
 ```php
