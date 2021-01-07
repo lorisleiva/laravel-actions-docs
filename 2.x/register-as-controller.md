@@ -142,6 +142,8 @@ class GetArticlesFromAuthor
 However, in order for this to work, you need to tell Laravel Actions where your actions are located so it can loop through your static `routes` methods. For that all you need to do is call the `registerRoutes` method of the `Actions` Facade on a service provider. It will look recursively into the folders provided.
 
 ```php
+use Lorisleiva\Actions\Facades\Actions;
+
 // Register routes from actions in "app/Actions" (default).
 Actions::registerRoutes();
 

@@ -94,10 +94,32 @@ public function getControllerMiddleware(): array
 ```
 
 ### `routes`
-TODO
+Defines some routes directly in your action.
 
 ```php
-TODO
+public static function routes(Router $router)
+{
+    $router->get('author/{author}/articles', static::class);
+}
+```
+
+For this to work, you need to call `Actions::registerRoutes` on a service provider.
+
+```php
+use Lorisleiva\Actions\Facades\Actions;
+
+// Register routes from actions in "app/Actions" (default).
+Actions::registerRoutes();
+
+// Register routes from actions in "app/MyCustomActionsFolder".
+Actions::registerRoutes('app/MyCustomActionsFolder');
+
+// Register routes from actions in multiple folders.
+Actions::registerRoutes([
+    'app/Authentication',
+    'app/Billing',
+    'app/TeamManagement',
+]);
 ```
 
 ### `prepareForValidation`
