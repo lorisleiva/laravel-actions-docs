@@ -4,87 +4,143 @@
 *Lists all methods provided by the trait.*
 
 ### `dispatch`
-TODO
+Dispatches a job asynchronously.
 
 ```php
-TODO
+SendTeamReportEmail::dispatch($team);
 ```
 
 ### `dispatchIf`
-TODO
+Dispatches a job asynchronously if the condition is met.
 
 ```php
-TODO
+SendTeamReportEmail::dispatchIf($team->plan === 'premium', $team);
 ```
 
 ### `dispatchUnless`
-TODO
+Dispatches a job asynchronously unless the condition is met.
 
 ```php
-TODO
+SendTeamReportEmail::dispatchUnless($team->plan === 'free', $team);
 ```
 
 ### `dispatchSync`
-TODO
+Dispatches a job synchronously.
 
 ```php
-TODO
+SendTeamReportEmail::dispatchSync($team);
 ```
 
 ### `dispatchNow`
-TODO
+Dispatches a job synchronously. (Alias of `dispatchSync`).
 
 ```php
-TODO
+SendTeamReportEmail::dispatchNow($team);
 ```
 
 ### `dispatchAfterResponse`
-TODO
+Dispatches a job synchronously but only after the response was sent to the user.
 
-```php
-TODO
-```
-
-### `withChain`
-TODO
-
-```php
-TODO
+```phpSendTeamReportEmail::dispatchAfterResponse($team);
 ```
 
 ### `makeJob`
-TODO
+Creates a new `JobDecorator` that wraps the action. This can be used to dispatch a job using `dispatch` helper method or when creating a chain of jobs from actions (See `withChain`).
 
 ```php
-TODO
+dispatch(SendTeamReportEmail::makeJob($team));
 ```
 
 ### `makeUniqueJob`
-TODO
+Creates a new `UniqueJobDecorator` that wraps the action. By default, `makeJob` will automatically return a `UniqueJobDecorator` if your action implements the `ShouldBeUnique` trait. However, you may use this method directly to force a `UniqueJobDecorator` to be created.
 
 ```php
-TODO
+dispatch(SendTeamReportEmail::makeUniqueJob($team));
+```
+
+### `withChain`
+Attaches a list of jobs to be executed after the job was processed.
+
+```php
+$chain = [
+    OptimizeTeamReport::makeJob($team),
+    SendTeamReportEmail::makeJob($team),
+];
+
+CreateNewTeamReport::withChain($chain)->dispatch($team);
+```
+
+Note that you can achieve the same result by using the chain method on the Bus Facade.
+
+```php
+use Illuminate\Support\Facades\Bus;
+
+Bus::chain([
+    CreateNewTeamReport::makeJob($team),
+    OptimizeTeamReport::makeJob($team),
+    SendTeamReportEmail::makeJob($team),
+])->dispatch();
 ```
 
 ### `assertPushed`
-TODO
+Asserts the action was dispatched.
 
 ```php
-TODO
+// Requires the Queue Facade to be fake.
+Queue::fake();
+
+// Assert the job was dispatched.
+SendTeamReportEmail::assertPushed();
+
+// Assert the job was dispatched 3 times.
+SendTeamReportEmail::assertPushed(3);
+
+// Assert a job that satisfies the given callback was dispatched.
+SendTeamReportEmail::assertPushed($callback);
+
+// Assert a job that satisfies the given callback was dispatched 3 times.
+SendTeamReportEmail::assertPushed(3, $callback);
 ```
 
+The callback will receive the following four arguments:
+
+1. The action itself. Here it would be an instance of SendTeamReportEmail.
+2. The job's arguments. That is, the arguments you provided when calling SendTeamReportEmail::dispatch(...).
+3. The JobDecorator that decorates your action.
+4. The name of the queue that was used.
+
 ### `assertNotPushed`
-TODO
+Asserts the action was not dispatched. See `assertPushed` for the callback arguments.
 
 ```php
-TODO
+// Requires the Queue Facade to be fake.
+Queue::fake();
+
+// Assert the job was not dispatched.
+SendTeamReportEmail::assertNotPushed();
+
+// Assert a job that satisfies the given callback was not dispatched.
+SendTeamReportEmail::assertNotPushed($callback);
 ```
 
 ### `assertPushedOn`
-TODO
+Asserts the action was dispatched on a given queue. See `assertPushed` for the callback arguments.
 
 ```php
-TODO
+// Requires the Queue Facade to be fake.
+Queue::fake();
+
+// Assert the job was dispatched on the 'reports' queue.
+SendTeamReportEmail::assertPushedOn('reports');
+
+// Assert the job was dispatched on the 'reports' queue 3 times.
+SendTeamReportEmail::assertPushedOn('reports', 3);
+
+// Assert a job that satisfies the given callback was dispatched on the 'reports' queue.
+SendTeamReportEmail::assertPushedOn('reports', $callback);
+
+// Assert a job that satisfies the given callback was dispatched on the 'reports' queue 3 times.
+SendTeamReportEmail::assertPushedOn('reports', 3, $callback);
 ```
 
 ## Method used
