@@ -1,3 +1,7 @@
+---
+sidebarDepth: 2
+---
+
 # As job
 
 ## Method provided

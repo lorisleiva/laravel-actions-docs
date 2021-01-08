@@ -1,3 +1,7 @@
+---
+sidebarDepth: 2
+---
+
 # As object
 
 ## Method provided
