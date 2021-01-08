@@ -45,7 +45,8 @@ SendTeamReportEmail::dispatchNow($team);
 ### `dispatchAfterResponse`
 Dispatches a job synchronously but only after the response was sent to the user.
 
-```phpSendTeamReportEmail::dispatchAfterResponse($team);
+```php
+SendTeamReportEmail::dispatchAfterResponse($team);
 ```
 
 ### `makeJob`
