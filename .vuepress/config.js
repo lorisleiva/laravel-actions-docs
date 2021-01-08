@@ -14,7 +14,6 @@ module.exports = {
         editLinks: true,
         editLinkText: 'Edit this page',
         nav: [
-            { text: 'Documentation', link: '/' },
             {
                 text: 'Version',
                 items: [
@@ -119,6 +118,10 @@ module.exports = {
             type: _ => 'website',
             description: (_, $site) => $site.description,
             image: (_, $site) => $site.domain + 'hero2-social.jpg',
-        }
+        },
+        '@vuepress/search': {
+            searchMaxSuggestions: 6,
+            test: '/2\.x/',
+        },
     },
 }
