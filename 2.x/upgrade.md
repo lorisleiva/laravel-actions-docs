@@ -174,6 +174,53 @@ To fix this, you simply need to replace `Queue::assertPushed(MyAction::class)` t
 
 See ["Asserting jobs were pushed"](./dispatch-jobs.html#asserting-jobs-were-pushed) for more information.
 
-## Method map
+## Methods and properties map
 
-TODO: table v1, v2, status(added, renamed, removed), comments.
+The table below provides a mapping between the methods and properties available in v1 and the ones available in v2 ordered alphabetically.
+
+| v1 | v2 | Comments |
+| - | - | - |
+| `actingAs` | *Removed* | No more user helpers. If an action requires a user to work, simply pass the user as an argument. |
+| `afterValidator` | `afterValidator` | Same behaviour but only applies when running as a controller. |
+| `all` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `asCommand` | `asCommand` | Same name but different behaviour. `asCommand` is now the single point of entry when the action is executed as a command (See "[One method for both input and output](#one-method-for-both-input-and-output)").  |
+| `asController` | `asController` | Same name but different behaviour. `asController` is now the single point of entry when the action is executed as a controller (See "[One method for both input and output](#one-method-for-both-input-and-output)").  |
+| `asJob` | `asJob` | Same name but different behaviour. `asJob` is now the single point of entry when the action is dispatched as a job (See "[One method for both input and output](#one-method-for-both-input-and-output)").  |
+| `asListener` | `asListener` | Same name but different behaviour. `asListener` is now the single point of entry when the action is executed as a listener (See "[One method for both input and output](#one-method-for-both-input-and-output)").  |
+| `attributes` | `getValidationAttributes` | Same behaviour but only applies when running as a controller. |
+| `authorize` | `authorize` | Same behaviour but only applies when running as a controller. |
+| `can` | *Removed* | On v2, there's no `$user` property anymore. |
+| `$commandSignature` | `$commandSignature` | Same but need to be `public`. On v2, you can also use the `getCommandSignature` method instead. |
+| `$commandDescription` | `$commandDescription` | Same but need to be `public`. On v2, you can also use the `getCommandDescription` method instead. |
+| `consoleOutput` | *Removed* | You can now provide the command's output directly in the `asCommand` method. |
+| `delegateTo` | *Removed* | Just use `MyOtherAction::run` instead. The same goes for `createFrom` and `runAs`. |
+| `$errorBag` | `getValidationErrorBag` | Same behaviour but only applies when running as a controller. |
+| `except` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `failedAuthorization` | `getAuthorizationFailure` | Same behaviour but only applies when running as a controller. |
+| `failedValidation` | `getValidationFailure` | Same behaviour but only applies when running as a controller. |
+| `fill` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `get` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `getAttributesFromCommand` | *Removed* | You can now parse the command's input directly in the `asCommand` method. |
+| `getAttributesFromConstructor` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `getAttributesFromEvent` | *Removed* | You can now parse the event data directly in the `asListener` method. |
+| `getAttributesFromRequest` | *Removed* | You can now parse the request data directly in the `asController` method. |
+| `getRedirectUrl` | `getValidationRedirect` | Same behaviour but only applies when running as a controller. |
+| `handle` | `handle` | Same method but it no longer resolves the attributes from its arguments since v2 no longer has attributes. Instead, you have full control over your method signature. |
+| `has` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `initialized` | *Removed* | You can now use `__construct` instead. |
+| *Added* | `make` | *(Static)* Equivalent to `app(MyAction::class)`. |
+| `messages` | `getValidationMessages` | Same behaviour but only applies when running as a controller. |
+| `middleware` | `getControllerMiddleware` or `getJobMiddleware` | On v2, you have to explicitely provide middleware for controllers and/or jobs. On v1, there could have been conflicts between the two. |
+| `only` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `prepareForValidation` | `prepareForValidation` | Same behaviour but only applies when running as a controller. |
+| `registered` | *Removed* | On v2, actions are recognised on demand instead of being registered in a service provider. |
+| `response` | *Removed* | You can now provide the controller's reponse directly in the `asController` method. Note that `htmlResponse` and `jsonResponse` still exist. |
+| `routes` | `routes` | *(static)* Same method but you need to locate your actions in a service provider for this to work (See "[Registering routes directly in the action](register-as-controller.html#registering-routes-directly-in-the-action)"). |
+| `rules` | `rules` | Same behaviour but only applies when running as a controller. |
+| `run` | `run` | *(Static)* Same behaviour but now works only statically. You can use `$action->handle(...)` if you're looking for a non-static way to run your action. |
+| `runningAs` | *Removed* | You pattern-specific logic now live in the `asX` methods. |
+| `set` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `user` | *Removed* | No more user helpers. If an action requires a user to work, simply pass the user as an argument. |
+| `validationData` | `getValidationData` | Same behaviour but only applies when running as a controller. |
+| `validator` | `getValidator` | Same behaviour but only applies when running as a controller. |
+| `withValidator` | `withValidator` | Same behaviour but only applies when running as a controller. |
