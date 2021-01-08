@@ -123,7 +123,7 @@ module.exports = {
             searchMaxSuggestions: 6,
             test: '/2\.x/',
         },
-        '@vuepress/google-analytics': {
+        'google-gtag': {
             ga: 'G-0RS0H38JHZ',
         },
     },

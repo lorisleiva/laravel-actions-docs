@@ -4,8 +4,8 @@
   "description": "Documentation for Laravel Actions",
   "dependencies": {},
   "devDependencies": {
-    "@vuepress/plugin-google-analytics": "^1.8.0",
     "vuepress": "^1.7.1",
+    "vuepress-plugin-google-gtag": "^1.0.1",
     "vuepress-plugin-seo": "^0.1.4"
   },
   "scripts": {
