@@ -78,7 +78,7 @@ If you are using PHPStorm, you can use annotations to update the signature of th
 
 ## Handling attributes
 
-When running actions as plain PHP objects, their attributes can be manually updated using the various helper methods mentioned in the "[Actions' attributes](/actions-attributes.html)" page. For example:
+When running actions as plain PHP objects, their attributes can be manually updated using the various helper methods mentioned in the "[Actions' attributes](./actions-attributes.html)" page. For example:
 
 ```php
 $action = new PublishANewArticle;

@@ -3,10 +3,19 @@ metaTitle: 'Laravel Actions'
 ---
 
 # Laravel Actions
-⚡Laravel components that take care of one specific task
+
+⚡ **Classes that take care of one specific task.**
 
 This package introduces a new way of organising the logic of your Laravel applications by focusing on the actions your application provide.
 
-Similarly to how VueJS components regroup HTML, JavaScript and CSS together, Laravel Actions regroup the authorisation, validation and execution of a task in one class that can be used as an **invokable controller**, as a **plain object**, as a **dispatchable job**, as an **event listener** and as an **artisan command**.
+Instead of creating controllers, jobs, listeners and so on, it allows you to create a PHP class that handles a specific task and run that class as anything you want.
 
-![Hero](/hero.png)
+Therefore it encourages you to switch your focus from:
+
+> "What controllers do I need?", "should I make a FormRequest for this?", "should this run asynchronously in a job instead?", ect.
+
+to:
+
+> "What does my application actually do?"
+
+![Hero](/hero2.png)
