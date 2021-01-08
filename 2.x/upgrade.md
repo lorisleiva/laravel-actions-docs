@@ -85,6 +85,25 @@ class CreateNewArticle
 
 Because we no longer have attributes to unify data between patterns, authorization and validation will only affect the action when it is running as a controller — and therefore when a request is available.
 
+## Inject dependencies in the constructor
+
+Since your actions will always be resolved from the container, you may now use the `__construct` method to inject some dependencies into your action.
+
+```php
+// v2
+class GetDirectionsToRestaurant
+{
+    use AsAction;
+
+    protected GoogleMapsService $googleMaps;
+
+    public function __construct(GoogleMapsService $googleMaps)
+    {
+        $this->googleMaps = $googleMaps;
+    }
+}
+```
+
 ## One method for both input and output
 
 On v1, you could use the `asX` methods to insert logic *before* the `handle` method is executed and/or the `getAttributesFromX` methods to provide custom parsing between the pattern and the attributes. You'd then need to implement an other method such as `response` or `consoleOutput` to insert logic *after* the `handle` method.
@@ -147,4 +166,14 @@ class CreateNewArticle
 }
 ```
 
-TODO: more
+## Queue fake and job decorators
+
+If you're using `Queue::fake()` in your test to assert an action was dispatched as a job, these tests will now fail due to the fact that the job is now a `JobDecorator` wrapping your action and no the action itself.
+
+To fix this, you simply need to replace `Queue::assertPushed(MyAction::class)` to `MyAction::assertPushed()`.
+
+See ["Asserting jobs were pushed"](./dispatch-jobs.html#asserting-jobs-were-pushed) for more information.
+
+## Method map
+
+TODO: table v1, v2, status(added, renamed, removed), comments.
