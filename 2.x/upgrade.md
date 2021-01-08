@@ -23,7 +23,7 @@ class UpdateUserPassword extends Action
 }
 ```
 
-On the other hand, v2 no longer forces your actions to extend anything and gives you the freedom to right your action classes exactly as you want them to be. Instead, it uses traits to provide helper methods and recognise that your action want to be recognised as a certain pattern.
+On the other hand, v2 no longer forces your actions to extend anything and gives you the freedom to write your action classes exactly as you want them to be. Instead, it uses traits to provide helper methods and recognise that your action wants to be acted on in certain way.
 
 Each pattern comes with their own trait — `AsController`, `AsJob`, etc. — and are bundled together in a `AsAction` trait (See "[More granular traits](./granular-traits)").
 
@@ -168,7 +168,7 @@ class CreateNewArticle
 
 ## Queue fake and job decorators
 
-If you're using `Queue::fake()` in your test to assert an action was dispatched as a job, these tests will now fail due to the fact that the job is now a `JobDecorator` wrapping your action and no the action itself.
+If you're using `Queue::fake()` in your tests to assert an action was dispatched as a job, these tests will now fail due to the fact that the job is now a `JobDecorator` wrapping your action and not the action itself.
 
 To fix this, you simply need to replace `Queue::assertPushed(MyAction::class)` to `MyAction::assertPushed()`.
 
