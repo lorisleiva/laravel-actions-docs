@@ -187,6 +187,17 @@ class SendTeamReportEmail
 }
 ```
 
+Also note that you can use the `configureJob` method to set the `tries`, `maxExceptions` and/or `timeout` job properties.
+
+```php
+public function configureJob(JobDecorator $job): void
+{
+    $job->setTries(10)
+        ->setMaxExceptions(3)
+        ->setTimeout(60 * 30);
+}
+```
+
 ## Registering job middleware
 
 You may also attach job middleware to your actions by returning them from the `getJobMiddleware` method.
