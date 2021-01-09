@@ -147,7 +147,7 @@ public function configureJob(JobDecorator $job): void
 }
 ```
 
-Alternatively, if you only want to set the connection and/or queue for your action, you may use the `jobConnection` and/or `jobQueue` properties respectively.
+Additionally, you may use any of the properties below to further configure and/or adjust the retry-logic of your jobs.
 
 ```php
 class SendTeamReportEmail
@@ -156,6 +156,32 @@ class SendTeamReportEmail
 
     public string $jobConnection = 'my_connection';
     public string $jobQueue = 'my_queue';
+    public int $jobTries = 10;
+    public int $jobMaxExceptions = 3;
+    public int $jobBackoff = 60 * 5;
+    public int $jobTimeout = 60 * 30;
+    public int $jobRetryUntil = 3600 * 2;
+
+    // ...
+}
+```
+
+Since you might want to define the `backoff` and the `retryUntil` dynamically, you may instead used the `getJobBackoff` and `getJobRetryUntil` methods respectively.
+
+```php
+class SendTeamReportEmail
+{
+    use AsAction;
+
+    public function getJobBackoff(): array
+    {
+        return [30, 60, 120];
+    }
+
+    public function getJobRetryUntil(): DateTime
+    {
+        return now()->addMinutes(30);
+    }
 
     // ...
 }

@@ -211,6 +211,70 @@ Defines the queue of the `JobDecorator`. Can also be set using `configureJob`.
 public string $jobQueue = 'my_queue';
 ```
 
+### `$jobTries`
+Defines the number of times the job may be attempted.
+
+```php
+public int $jobTries = 10;
+```
+
+### `$jobMaxExceptions`
+Defines the maximum number of exceptions to allow before failing.
+
+```php
+public int $jobMaxExceptions = 3;
+```
+
+### `$jobBackoff`
+Defines the number of seconds to wait before retrying the job. Can also be set the `getJobBackoff` method.
+
+```php
+public int $jobBackoff = 60;
+```
+
+### `getJobBackoff`
+Defines the number of seconds to wait before retrying the job.
+
+```php
+public function getJobBackoff(): int
+{
+    return 60;
+}
+```
+
+You may also provide an array to provide different backoffs for each retries.
+
+```php
+public function getJobBackoff(): array
+{
+    return [30, 60, 120];
+}
+```
+
+### `$jobTimeout`
+Defines the number of seconds the job can run before timing out.
+
+```php
+public int $jobTimeout = 60 * 30;
+```
+
+### `$jobRetryUntil`
+Defines the timestamp at which the job should timeout. Can also be set the `getJobRetryUntil` method.
+
+```php
+public int $jobRetryUntil = 1610191764;
+```
+
+### `getJobRetryUntil`
+Defines the time at which the job should timeout.
+
+```php
+public function getJobRetryUntil(): DateTime
+{
+    return now()->addMinutes(30);
+}
+```
+
 ### `getJobDisplayName`
 Customises the display name of the `JobDecorator`. It provides the same arguments as the `asJob` method.
 
