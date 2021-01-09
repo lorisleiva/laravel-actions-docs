@@ -95,7 +95,7 @@ SendTeamReportEmail::dispatchAfterResponse($team);
 
 ### With chain
 
-Finally, you main chain multiple jobs together by using the `withChain` method. Make sure to use the `makeJob` method to instantiate the chained jobs — otherwise your action will not be wrapped in a `JobDecorator`.
+Finally, you may chain multiple jobs together by using the `withChain` method. Make sure to use the `makeJob` method to instantiate the chained jobs — otherwise your action will not be wrapped in a `JobDecorator`.
 
 ```php
 $chain = [
