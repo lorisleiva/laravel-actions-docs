@@ -88,7 +88,9 @@ And just like that, you're using your custom PHP class as a controller. But what
 Instead of injecting the regular `Request` class, we can either inject a custom `FormRequest` class or inject the `ActionRequest` class which will use the action itself to resolve authorization and validation.
 
 ```php
+use Lorisleiva\Actions\Concerns\AsAction;
 use Lorisleiva\Actions\ActionRequest;
+use Illuminate\Validation\Validator;
 
 class UpdateUserPassword
 {
