@@ -209,6 +209,54 @@ public function getJobMiddleware(): array
 }
 ```
 
+## Batching jobs
+
+Note that job batching is also supported. Simply use the `makeJob` method to create many jobs inside a batch.
+
+```php
+$batch = Bus::batch([
+    SendTeamReportEmail::makeJob($firstTeam),
+    SendTeamReportEmail::makeJob($secondTeam),
+    SendTeamReportEmail::makeJob($thirdTeam),
+])->then(function (Batch $batch) {
+    // All jobs completed successfully...
+})->catch(function (Batch $batch, Throwable $e) {
+    // First batch job failure detected...
+})->finally(function (Batch $batch) {
+    // The batch has finished executing...
+})->dispatch();
+```
+
+When dispatching jobs in batch, you might want to access the `$batch` instance from the `asJob` method. You may do this by prepending your arguments with `?Batch $batch`. Note that the `?` is important since the job might also be dispatched normally — i.e. not in a batch. Laravel Actions uses `Reflection` to only provide that argument when you request it.
+
+```php
+use Illuminate\Bus\Batch;
+
+public function asJob(?Batch $batch, Team $team)
+{
+    if ($batch && $batch->cancelled()) {
+        return;
+    }
+
+    $this->handle($team, true);
+}
+```
+
+Note that you may also inject the `JobDecorator` instead of the `?Batch` if you need to.
+
+```php
+use Lorisleiva\Actions\Decorators\JobDecorator;
+
+public function asJob(JobDecorator $job, Team $team)
+{
+    if ($job->batch() && $job->batch()->cancelled()) {
+        return;
+    }
+
+    $this->handle($team, true);
+}
+```
+
 ## Unique jobs
 
 The Laravel framework provides a `ShouldBeUnique` trait that you can use on a job to ensure it runs only once for a given identifier and for a given amount of time. With a traditional job, it looks like this.
