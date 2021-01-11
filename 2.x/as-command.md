@@ -24,7 +24,7 @@ class UpdateUserRole
         $user->update(['role' => $newRole]);
     }
 
-    public function asController(Command $command): void
+    public function asCommand(Command $command): void
     {
         $this->handle(
             User::findOrFail($command->argument('user_id')),
