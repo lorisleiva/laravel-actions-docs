@@ -3,7 +3,7 @@
 All you need to do to get started is add Laravel Action to your composer dependencies.
 
 ```sh
-composer require lorisleiva/laravel-actions
+composer require "lorisleiva/laravel-actions":"^1.2"
 ```
 
 You can then use the `make:action` artisan command to create your first action.
