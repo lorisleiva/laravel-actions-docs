@@ -81,9 +81,9 @@ class UpdateUserRole
 
 ## From command to action
 
-Finally, you will need to implement the `asController` method in order to parse the command's input into a call to your `handle` method.
+Finally, you will need to implement the `asCommand` method in order to parse the command's input into a call to your `handle` method.
 
-The `asController` method provides you with the `CommandDecorator` as a first argument which is an instance of `Illuminate\Console\Command`.
+The `asCommand` method provides you with the `CommandDecorator` as a first argument which is an instance of `Illuminate\Console\Command`.
 
 This means you can use it to fetch command arguments and options but also to prompt and/or display something back to the terminal.
 
@@ -101,7 +101,7 @@ class UpdateUserRole
         $user->update(['role' => $newRole]);
     }
 
-    public function asController(Command $command): void
+    public function asCommand(Command $command): void
     {
         $this->handle(
             User::findOrFail($command->argument('user_id')),
@@ -127,7 +127,7 @@ class UpdateUserRole
         $user->update(['role' => $newRole]);
     }
 
-    public function asController(Command $command): void
+    public function asCommand(Command $command): void
     {
         $userId = $command->ask('What is the ID of the user?');
 
