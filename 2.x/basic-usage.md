@@ -48,6 +48,20 @@ UpdateUserPassword::make();
 UpdateUserPassword::run($user, 'secret');
 ```
 
+However, these are just here as additional helper methods. Feel free to instantiate and run your actions however you prefer. For example, you can resolve them from the container using dependency injection.
+
+```php
+class MySecurityService
+{
+    protected UpdateUserPassword $updatePassword;
+
+    public function __construct(UpdateUserPassword $updatePassword)
+    {
+        $this->updatePassword = $updatePassword;
+    }
+}
+```
+
 ## Running as a controller
 
 Now, let's use our action as a controller. First, we need to register it in our routes file just like we would register any invokable controller.
@@ -133,9 +147,9 @@ And that's it! Now, when we reach the `asController` method, we know for sure th
 
 Before wrapping up this tutorial, let's see how we could run our action as a command.
 
-Similarly to what we did earlier, we simply need to implement the `asCommand` method to transform our command line arguments and options into a user object and a password. This methods accepts a `Command` as an argument which can be used to both read input and write output.
+Similarly to what we did earlier, we simply need to implement the `asCommand` method to transform our command-line arguments and options into a user object and a password. This method accepts a `Command` as an argument that can be used to both read input and write output.
 
-Additionally we need to provide the command signature and description via the `$commandSignature` and `$commandDescription` properties.
+Additionally, we need to provide the command signature and description via the `$commandSignature` and `$commandDescription` properties.
 
 ```php
 class UpdateUserPassword
@@ -177,8 +191,8 @@ class Kernel extends ConsoleKernel
 
 Hopefully, this little tutorial helped to see what this package can achieve for you. On top of controllers and commands, Laravel Actions also supports jobs and listeners following the same conventions — by implementing the `asJob` and `asListener` methods.
 
-Better yet, **your custom PHP class is never directly used as a controller, job, command or listener**. Instead it is wrapped in an appropriate decorator based on what it is running as. This means you have full control of your actions and you don't need to worry about cross-pattern conflicts (See "[How does it work?](./how-does-it-work)").
+Better yet, **your custom PHP class is never directly used as a controller, job, command or listener**. Instead, it is wrapped in an appropriate decorator based on what it is running as. This means you have full control of your actions and you don't need to worry about cross-pattern conflicts (See "[How does it work?](./how-does-it-work)").
 
-If you like learning by reading code, the "[Learn with examples](./examples/generate-reservation-code)" section is for you. Each example provide the code of one action, how it's being used or registered and a brief description explaining its purpose.
+If you like learning by reading code, the "[Learn with examples](./examples/generate-reservation-code)" section is for you. Each example provides the code of one action, how it's being used or registered and a brief description explaining its purpose.
 
 Be sure to also check the "[Guide](./one-class-one-task)" and "[References](./as-object)" sections to gain more knowledge on what you can do with actions and to refer back to methods made available to you.
