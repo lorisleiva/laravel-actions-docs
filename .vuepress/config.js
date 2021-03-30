@@ -95,6 +95,7 @@ module.exports = {
                         '/2.x/mock-and-test',
                         '/2.x/granular-traits',
                         '/2.x/how-does-it-work',
+                        '/2.x/use-unified-attributes',
                     ],
                 },
                 {
@@ -107,6 +108,7 @@ module.exports = {
                         '/2.x/as-listener',
                         '/2.x/as-command',
                         '/2.x/as-fake',
+                        '/2.x/with-attributes',
                     ],
                 },
             ]

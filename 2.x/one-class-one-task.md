@@ -10,7 +10,7 @@ An action can be any PHP class with a `handle` method. Just add the `AsAction` t
 
 It has only one constraint: **it must be able to resolve from the container** — meaning `app(MyAction::class)` should not fail.
 
-This means, you can use the constructor to inject dependencies to your actions.
+This means you can use the constructor to inject dependencies into your actions.
 
 ```php
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -37,7 +37,7 @@ class MyFirstAction
 
 ## Running as an object
 
-Because you have complete control over your action classes, you don't really need Laravel Actions to run it as an object.
+Because you have complete control over your action classes, you don't really need Laravel Actions to run it as an object. Feel free to instantiate and run your actions however you prefer. For example, you can resolve them from the container using dependency injection.
 
 However, Laravel Actions provides two helper static methods for you: `make` and `run`. These make it easier for you to **instantiate** and **execute** your action respectively.
 
@@ -49,13 +49,13 @@ MyFirstAction::make();
 MyFirstAction::run($myArguments);
 ```
 
-It is good practice to use these methods to instantiate an Action to ensure it is always resolved from the container. That way:
-- You can always use dependency injection on the constructor.
+No matter how you decide to instantiate your action, It is good practice to ensure it is always resolved from the container. That way:
+- You can always use dependency injection on its constructor.
 - You can replace the action with a mock on your tests (See "[Mock and test your actions](./mock-and-test)").
 
 ## Recommended conventions
 
-Even though you have full control on how to implement your actions, a few minor conventions can help you stay consistent when organising your application. Here are two recommended ones.
+Even though you have full control over how to implement your actions, a few minor conventions can help you stay consistent when organising your application. Here are two recommended ones.
 
 ### Start with a verb
 
@@ -94,7 +94,7 @@ app/
 └── ...
 ```
 
-Alternatively, if your application is already divided in topics — or modules — you can create an `Actions` folder under each of these modules. For example:
+Alternatively, if your application is already divided into topics — or modules — you can create an `Actions` folder under each of these modules. For example:
 
 ```
 app/
@@ -115,7 +115,7 @@ app/
 
 So far, we've only seen how to run actions as objects, but you might be wondering how your classes are going to be executed as controllers, jobs, etc.
 
-Laravel Actions does that by adding a special interceptor on the container that recognise how the class is being run. When it does — and that's the important part — **it wraps your PHP class inside a decorator that will delegate to your action when it needs to**. Each design pattern has their own decorator — e.g. `ControllerDecorator`, `JobDecorator` and so on. That means you still have full control over your PHP class and need not to worry about conflict between various design patterns.
+Laravel Actions does that by adding a special interceptor on the container that recognise how the class is being run. When it does — and that's the important part — **it wraps your PHP class inside a decorator that will delegate to your action when it needs to**. Each design pattern has its own decorator — e.g. `ControllerDecorator`, `JobDecorator` and so on. That means you still have full control over your PHP class and need not worry about conflicts between various design patterns.
 
 Check out the "[How does it work?](./how-does-it-work)" page if you're interested in learning more about this.
 

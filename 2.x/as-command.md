@@ -4,7 +4,7 @@ sidebarDepth: 2
 
 # As command
 
-## Method used
+## Methods used
 *Lists all methods and properties recognised and used by the `CommandDecorator`.*
 
 ### `asCommand`

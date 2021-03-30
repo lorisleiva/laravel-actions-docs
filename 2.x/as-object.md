@@ -4,8 +4,8 @@ sidebarDepth: 2
 
 # As object
 
-## Method provided
-*Lists all method provided by the trait.*
+## Methods provided
+*Lists all methods provided by the trait.*
 
 ### `make`
 Resolves the action from the container.

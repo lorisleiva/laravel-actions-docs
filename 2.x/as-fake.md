@@ -4,7 +4,7 @@ sidebarDepth: 2
 
 # As fake
 
-## Method provided
+## Methods provided
 *Lists all methods provided by the trait.*
 
 ### `mock`

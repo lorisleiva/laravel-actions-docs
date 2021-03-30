@@ -4,7 +4,7 @@ sidebarDepth: 2
 
 # As job
 
-## Method provided
+## Methods provided
 *Lists all methods provided by the trait.*
 
 ### `dispatch`
@@ -148,7 +148,7 @@ SendTeamReportEmail::assertPushedOn('reports', $callback);
 SendTeamReportEmail::assertPushedOn('reports', 3, $callback);
 ```
 
-## Method used
+## Methods used
 *Lists all methods and properties recognised and used by the `JobDecorator`.*
 
 ### `asJob`
