@@ -90,7 +90,7 @@ $action->title = 'My blog post';
 ```
 
 ### `__isset`
-Allows attributes' existance to be checked like properties by using the magic method `__isset`.
+Allows attributes' existence to be checked like properties by using the magic method `__isset`.
 
 ```php
 isset($action->title);
