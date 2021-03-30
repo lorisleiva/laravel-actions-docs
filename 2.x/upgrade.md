@@ -23,7 +23,7 @@ class UpdateUserPassword extends Action
 }
 ```
 
-On the other hand, v2 no longer forces your actions to extend anything and gives you the freedom to write your action classes exactly as you want them to be. Instead, it uses traits to provide helper methods and recognise that your action wants to be acted on in certain way.
+On the other hand, v2 no longer forces your actions to extend anything and gives you the freedom to write your action classes exactly as you want them to be. Instead, it uses traits to provide helper methods and recognise that your action wants to be acted on in a certain way.
 
 Each pattern comes with their own trait — `AsController`, `AsJob`, etc. — and are bundled together in a `AsAction` trait (See "[More granular traits](./granular-traits)").
 
@@ -47,7 +47,7 @@ class UpdateUserPassword
 
 The bottom line here is: a refactoring from v1 to v2 might be a good opportunity to rethink some of your actions now that you're free to implement them without any constraints.
 
-Whilst it is impossible to provide a step-by-step guide to upgrading to v2, the next sections focus on providing snippet of before/after code to help you see what has changed.
+Whilst it is impossible to provide a step-by-step guide to upgrading to v2, the next sections focus on providing snippets of before/after code to help you see what has changed.
 
 ## No more attributes
 
@@ -83,7 +83,7 @@ class CreateNewArticle
 
 However, since version `2.1`, there is an optional `WithAttributes` trait that you can add to your action to keep the array of unified attributes in your actions.
 
-Just like in Laravel Actions v1, your actions now have access to methods like `set`, `get` or `fill` to handle attributes and attributes can be retrieved and updated like properties. Contrary to Laravel Actions v1 though, you will need to explicitely fill the attributes since methods like `getAttributesFromConstructor` no longer exist. This can be done in many ways. Your `handle` method could accept an array of attributes as arguments or it could instead expect attributes to have been filled beforehand. Or it could do a mixture of both. Here's an example using the `CreateNewArticle` action from above.
+Just like in Laravel Actions v1, your actions now have access to methods like `set`, `get` or `fill` to handle attributes and attributes can be retrieved and updated like properties. Contrary to Laravel Actions v1 though, you will need to explicitly fill the attributes since methods like `getAttributesFromConstructor` no longer exist. This can be done in many ways. Your `handle` method could accept an array of attributes as arguments or it could instead expect attributes to have been filled beforehand. Or it could do a mixture of both. Here's an example using the `CreateNewArticle` action from above.
 
 ```php
 // v2 with attributes.
@@ -109,7 +109,7 @@ class CreateNewArticle
 }
 ```
 
-As you can see, once we fill the attributes, they are accessible from anywhere within the action. Read "[Use unified attributes](./use-unified-attributes)" for more information.
+As you can see, once we fill in the attributes, they are accessible from anywhere within the action. Read "[Use unified attributes](./use-unified-attributes)" for more information.
 
 ## Authorization and validation for controllers only
 
@@ -138,7 +138,7 @@ class GetDirectionsToRestaurant
 
 ## One method for both input and output
 
-On v1, you could use the `asX` methods to insert logic *before* the `handle` method is executed and/or the `getAttributesFromX` methods to provide custom parsing between the pattern and the attributes. You'd then need to implement an other method such as `response` or `consoleOutput` to insert logic *after* the `handle` method.
+On v1, you could use the `asX` methods to insert logic *before* the `handle` method is executed and/or the `getAttributesFromX` methods to provide custom parsing between the pattern and the attributes. You'd then need to implement another method such as `response` or `consoleOutput` to insert logic *after* the `handle` method.
 
 On v2, you no longer need to remember which method to call for hooking data before and/or after for each pattern. Instead, you have exactly one point of entry for each pattern: `asController`, `asCommand`, etc.
 
@@ -234,7 +234,7 @@ The table below provides a mapping between the methods and properties available 
 | *Added* | `fillFromRequest` | From the optional `WithAttributes` trait. Fills attributes using the request data and its route parameters. |
 | `get` | *Moved to* `WithAttributes` | Actions no longer have attributes. You can add this method back by using the `WithAttributes` trait. |
 | `getAttributesFromCommand` | *Removed* | You can now parse the command's input directly in the `asCommand` method. |
-| `getAttributesFromConstructor` | *Removed* | Actions no longer have attributes. When using the `WithAttributes` trait, you need to explicitely set your attributes. |
+| `getAttributesFromConstructor` | *Removed* | Actions no longer have attributes. When using the `WithAttributes` trait, you need to explicitly set your attributes. |
 | `getAttributesFromEvent` | *Removed* | You can now parse the event data directly in the `asListener` method. |
 | `getAttributesFromRequest` | *Removed* | You can now parse the request data directly in the `asController` method. |
 | `getRedirectUrl` | `getValidationRedirect` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
@@ -246,8 +246,8 @@ The table below provides a mapping between the methods and properties available 
 | `middleware` | `getControllerMiddleware` or `getJobMiddleware` | On v2, you have to explicitely provide middleware for controllers and/or jobs. On v1, there could have been conflicts between the two. |
 | `only` | *Moved to* `WithAttributes` | Actions no longer have attributes. You can add this method back by using the `WithAttributes` trait. |
 | `prepareForValidation` | `prepareForValidation` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
-| `registered` | *Removed* | On v2, actions are recognised on demand instead of being registered in a service provider. |
-| `response` | *Removed* | You can now provide the controller's reponse directly in the `asController` method. Note that `htmlResponse` and `jsonResponse` still exist. |
+| `registered` | *Removed* | On v2, actions are recognised on-demand instead of being registered in a service provider. |
+| `response` | *Removed* | You can now provide the controller's response directly in the `asController` method. Note that `htmlResponse` and `jsonResponse` still exist. |
 | `routes` | `routes` | *(static)* Same method but you need to locate your actions in a service provider for this to work (See "[Registering routes directly in the action](register-as-controller.html#registering-routes-directly-in-the-action)"). |
 | `rules` | `rules` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
 | `run` | `run` | *(Static)* Same behaviour but now works only statically. You can use `$action->handle(...)` if you're looking for a non-static way to run your action. |
