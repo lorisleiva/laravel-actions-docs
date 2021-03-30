@@ -2,7 +2,6 @@
   "name": "laravel-actions-docs",
   "version": "1.0.0",
   "description": "Documentation for Laravel Actions",
-  "dependencies": {},
   "devDependencies": {
     "vuepress": "^1.7.1",
     "vuepress-plugin-google-gtag": "^1.0.1",
