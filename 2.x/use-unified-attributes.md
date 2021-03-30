@@ -4,19 +4,19 @@
 This feature is available from version `2.1`.
 :::
 
-## Why using unified attribute?
+## Why using unified attributes?
 
-In the first version of Laravel Actions, actions were much more opinionated and forced you to **structure your data as a set of attributes that was unified across all design patterns** — i.e. as an object, as a controller, etc.
+In the first version of Laravel Actions, actions were much more opinionated and forced you to **structure your data as a set of attributes that were unified across all design patterns** — i.e. as an object, as a controller, etc.
 
-Laravel Actions moved away from this and dropped unified attributes to allow actions to be much more flexible and much less intrusive in the way you organize your classes. As a result, using Laravel Actions, you can now run any class as anything you want and even [cherry-pick the parts of Laravel Actions you want](./granular-traits).
+Laravel Actions moved away from this and dropped unified attributes to allow actions to be much more flexible and much less intrusive in the way you organize your classes. As a result, you can now run any class as anything you want and even [cherry-pick the parts of Laravel Actions you want](./granular-traits).
 
 This also means that Laravel Actions can now only help you resolve authorization and validation for your actions when they are executed as controllers. In the first version, the unified attributes meant we could offer this feature for every single pattern.
 
-For that reason, Laravel Actions provides an optional `WithAttributes` trait that allows you to **structure your action's data as an array of attributes that can be validated at any time**. Additionally, this trait makes the process of upgrading from Laravel Actions v1 much easier.
+For that reason, Laravel Actions v2 provides an optional `WithAttributes` trait that allows you to **structure your action's data as an array of attributes that can be validated at any time**. Additionally, this trait makes the process of upgrading from Laravel Actions v1 much easier.
 
 ## Adding attributes to an action
 
-The `WithAttributes` trait is not included in the `AsAction` trait by default. This means, you will need to add it next to the other imports.
+The `WithAttributes` trait is not included in the `AsAction` trait by default. This means you will need to add it next to the other imports.
 
 ```php
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -27,7 +27,7 @@ class MyAction
     use AsAction;
     use WithAttributes;
 
-    // Or if you're cherry-picking patterns.
+    // Or if you prefer cherry-picking patterns.
     use AsObject;
     use AsController;
     use AsFaker;
@@ -35,7 +35,7 @@ class MyAction
 }
 ```
 
-If you're going to use unified attributed for every single actions, you might want to create your own `AsAction` trait like so.
+If you're going to use unified attributes for every single action, you might want to create your own `AsAction` trait like so.
 
 ```php
 use Lorisleiva\Actions\Concerns\AsAction as AsBaseAction;
@@ -69,7 +69,7 @@ $action->title = 'My blog post';               // Set an attribute.
 
 ## Validating attributes
 
-The `WithAttributes` trait provides a `validateAttributes` method that you can use at any time to trigger the authorization and validation of your attributes. This method returns the validated data if you need it.
+The `WithAttributes` trait also provides a `validateAttributes` method that you can use at any time to trigger the authorization and validation of your attributes. This method returns the validated data if you need it.
 
 ```php
 public function handle(array $attributes = [])
@@ -97,7 +97,9 @@ When calling the `validateAttributes` method, the same methods used to validate 
 - [`getValidationFailure`](./as-controller.html#getvalidationfailure)
 - [`getAuthorizationFailure`](./as-controller.html#getauthorizationfailure)
 
-When using the `WithAttributes` trait, the action will no longer automatically validate the `ActionRequest` for you. This is to avoid triggering the validation process twice: once on the `ActionRequest` and once on your attributes. If you want to manually trigger validation on the `ActionRequest` instance, you can do so by calling the `validate` method on the request.
+Note that, when using the `WithAttributes` trait, **the action will no longer automatically validate the `ActionRequest` for you**. This is to avoid triggering the validation process twice: once on the `ActionRequest` and once on your attributes.
+
+If you want to manually trigger validation on the `ActionRequest` instance, you can do so by calling the `validate` method on the request.
 
 ```php
 class MyAction
@@ -129,7 +131,7 @@ class MyAction
 
 Let's have a look at a concrete example using unified attributes. We'll implement an action that creates a new article and do so as an object or as a controller. We'll want authorization and validation to trigger for both of these patterns.
 
-It's important to note that, even with the `WithAttributes` trait, you still have full control on how to structure your action's API. It's a good idea to think about how you'd like an action to be ran as an object. Do you want to be explicit in the arguments you provide? Do you want to give all the data as one big array? Or both?
+It's important to note that, even with the `WithAttributes` trait, you still have full control over how to structure your action's API. It's a good idea to first think about how you'd like your action to be run as an object. Do you want to be explicit in the arguments you provide? Do you want to give all the data as one big array? Or a mixture of both?
 
 ```php
 // As explicit arguments.
@@ -190,6 +192,6 @@ class PublishNewArticle
 }
 ```
 
-Notice how the `handle` method fills an optional attribute array for when used as an object. When used as a controller, we can use the `fillFromRequest` method instead which will fill our attributes with the request data and its route parameters.
+Notice how the `handle` method fills an optional attribute array when used as an object. When used as a controller, we can use the `fillFromRequest` method instead which will fill our attributes with the request data and its route parameters.
 
 Note that there are many ways you could handle unified attributes in your actions. This example is simply meant to help you get started with unified attributes.
