@@ -4,7 +4,7 @@ sidebarDepth: 2
 
 # With attributes
 
-## Method provided
+## Methods provided
 *Lists all methods provided by the trait.*
 
 ### `setRawAttributes`
@@ -103,7 +103,7 @@ Triggers the authorization and validation process on the action using its attrib
 $validatedData = $action->validateAttributes();
 ```
 
-## Method used
+## Methods used
 *Lists all methods recognised and used by the `AttributeValidator`.*
 
 The `WithAttributes` trait uses the same authorization and validation methods used by the `AsController` trait:

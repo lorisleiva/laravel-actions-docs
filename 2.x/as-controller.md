@@ -4,7 +4,7 @@ sidebarDepth: 2
 
 # As controller
 
-## Method provided
+## Methods provided
 *Lists all methods provided by the trait.*
 
 ### `__invoke`
@@ -48,7 +48,7 @@ class MyAction
 }
 ```
 
-## Method used
+## Methods used
 *Lists all methods recognised and used by the `ControllerDecorator` and `ActionRequest`.*
 
 ### `asController`

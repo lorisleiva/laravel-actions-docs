@@ -50,7 +50,7 @@ trait AsAction
 
 ## Managing attributes
 
-The `WithAttributes` trait provides the following methods to access and update attributes. You can [read more about them in the references](./with-attributes.html#method-provided).
+The `WithAttributes` trait provides the following methods to access and update attributes. You can [read more about them in the references](./with-attributes.html#methods-provided).
 
 ```php
 $action->setRawAttributes(['key' => 'value']); // Replace all attributes.

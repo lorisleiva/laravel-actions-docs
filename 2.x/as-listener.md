@@ -4,7 +4,7 @@ sidebarDepth: 2
 
 # As listener
 
-## Method used
+## Methods used
 *Lists all methods recognised and used by the `ListenerDecorator`.*
 
 ### `asListener`
