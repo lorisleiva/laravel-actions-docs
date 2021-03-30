@@ -51,7 +51,7 @@ Whilst it is impossible to provide a step-by-step guide to upgrading to v2, the 
 
 ## No more attributes
 
-There's no longer an array of attributes in your actions.
+By default, there is no longer an array of attributes in your actions. Thus, you might want to rethink how your action should organise its data.
 
 ```php
 // v1
@@ -81,9 +81,41 @@ class CreateNewArticle
 }
 ```
 
+However, since version `2.1`, there is an optional `WithAttributes` trait that you can add to your action to keep the array of unified attributes in your actions.
+
+Just like in Laravel Actions v1, your actions now have access to methods like `set`, `get` or `fill` to handle attributes and attributes can be retrieved and updated like properties. Contrary to Laravel Actions v1 though, you will need to explicitely fill the attributes since methods like `getAttributesFromConstructor` no longer exist. This can be done in many ways. Your `handle` method could accept an array of attributes as arguments or it could instead expect attributes to have been filled beforehand. Or it could do a mixture of both. Here's an example using the `CreateNewArticle` action from above.
+
+```php
+// v2 with attributes.
+class CreateNewArticle
+{
+    use AsAction;
+    use WithAttributes;
+
+    public function handle(User $author, array $attributes = []): Article
+    {
+        $this->set('author', $author);
+        $this->fill($attributes);
+
+        return $this->createArticle();
+    }
+
+    protected function createArticle(): Article
+    {
+        return $this->author->articles()->create(
+            $this->only('title', 'body')
+        );
+    }
+}
+```
+
+As you can see, once we fill the attributes, they are accessible from anywhere within the action. Read "[Use unified attributes](./use-unified-attributes)" for more information.
+
 ## Authorization and validation for controllers only
 
 Because we no longer have attributes to unify data between patterns, authorization and validation will only affect the action when it is running as a controller — and therefore when a request is available.
+
+Since version `2.1`, if you're using the `WithAttributes` trait, you can trigger authorization and validation using the action's attributes via the `validateAttributes` method. Read "[Use unified attributes](./use-unified-attributes)" for more information.
 
 ## Inject dependencies in the constructor
 
@@ -181,46 +213,48 @@ The table below provides a mapping between the methods and properties available 
 | v1 | v2 | Comments |
 | - | - | - |
 | `actingAs` | *Removed* | No more user helpers. If an action requires a user to work, simply pass the user as an argument. |
-| `afterValidator` | `afterValidator` | Same behaviour but only applies when running as a controller. |
-| `all` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `afterValidator` | `afterValidator` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
+| `all` | *Moved to* `WithAttributes` | Actions no longer have attributes. You can add this method back by using the `WithAttributes` trait. |
 | `asCommand` | `asCommand` | Same name but different behaviour. `asCommand` is now the single point of entry when the action is executed as a command (See "[One method for both input and output](#one-method-for-both-input-and-output)").  |
 | `asController` | `asController` | Same name but different behaviour. `asController` is now the single point of entry when the action is executed as a controller (See "[One method for both input and output](#one-method-for-both-input-and-output)").  |
 | `asJob` | `asJob` | Same name but different behaviour. `asJob` is now the single point of entry when the action is dispatched as a job (See "[One method for both input and output](#one-method-for-both-input-and-output)").  |
 | `asListener` | `asListener` | Same name but different behaviour. `asListener` is now the single point of entry when the action is executed as a listener (See "[One method for both input and output](#one-method-for-both-input-and-output)").  |
-| `attributes` | `getValidationAttributes` | Same behaviour but only applies when running as a controller. |
-| `authorize` | `authorize` | Same behaviour but only applies when running as a controller. |
+| `attributes` | `getValidationAttributes` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
+| `authorize` | `authorize` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
 | `can` | *Removed* | On v2, there's no `$user` property anymore. |
 | `$commandSignature` | `$commandSignature` | Same but need to be `public`. On v2, you can also use the `getCommandSignature` method instead. |
 | `$commandDescription` | `$commandDescription` | Same but need to be `public`. On v2, you can also use the `getCommandDescription` method instead. |
 | `consoleOutput` | *Removed* | You can now provide the command's output directly in the `asCommand` method. |
 | `delegateTo` | *Removed* | Just use `MyOtherAction::run` instead. The same goes for `createFrom` and `runAs`. |
-| `$errorBag` | `getValidationErrorBag` | Same behaviour but only applies when running as a controller. |
-| `except` | *Removed* | Obsolete now that actions no longer have attributes. |
-| `failedAuthorization` | `getAuthorizationFailure` | Same behaviour but only applies when running as a controller. |
-| `failedValidation` | `getValidationFailure` | Same behaviour but only applies when running as a controller. |
-| `fill` | *Removed* | Obsolete now that actions no longer have attributes. |
-| `get` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `$errorBag` | `getValidationErrorBag` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
+| `except` | *Moved to* `WithAttributes` | Actions no longer have attributes. You can add this method back by using the `WithAttributes` trait. |
+| `failedAuthorization` | `getAuthorizationFailure` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
+| `failedValidation` | `getValidationFailure` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
+| `fill` | *Moved to* `WithAttributes` | Actions no longer have attributes. You can add this method back by using the `WithAttributes` trait. |
+| *Added* | `fillFromRequest` | From the optional `WithAttributes` trait. Fills attributes using the request data and its route parameters. |
+| `get` | *Moved to* `WithAttributes` | Actions no longer have attributes. You can add this method back by using the `WithAttributes` trait. |
 | `getAttributesFromCommand` | *Removed* | You can now parse the command's input directly in the `asCommand` method. |
-| `getAttributesFromConstructor` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `getAttributesFromConstructor` | *Removed* | Actions no longer have attributes. When using the `WithAttributes` trait, you need to explicitely set your attributes. |
 | `getAttributesFromEvent` | *Removed* | You can now parse the event data directly in the `asListener` method. |
 | `getAttributesFromRequest` | *Removed* | You can now parse the request data directly in the `asController` method. |
-| `getRedirectUrl` | `getValidationRedirect` | Same behaviour but only applies when running as a controller. |
+| `getRedirectUrl` | `getValidationRedirect` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
 | `handle` | `handle` | Same method but it no longer resolves the attributes from its arguments since v2 no longer has attributes. Instead, you have full control over your method signature. |
-| `has` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `has` | *Moved to* `WithAttributes` | Actions no longer have attributes. You can add this method back by using the `WithAttributes` trait. |
 | `initialized` | *Removed* | You can now use `__construct` instead. |
 | *Added* | `make` | *(Static)* Equivalent to `app(MyAction::class)`. |
-| `messages` | `getValidationMessages` | Same behaviour but only applies when running as a controller. |
+| `messages` | `getValidationMessages` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
 | `middleware` | `getControllerMiddleware` or `getJobMiddleware` | On v2, you have to explicitely provide middleware for controllers and/or jobs. On v1, there could have been conflicts between the two. |
-| `only` | *Removed* | Obsolete now that actions no longer have attributes. |
-| `prepareForValidation` | `prepareForValidation` | Same behaviour but only applies when running as a controller. |
+| `only` | *Moved to* `WithAttributes` | Actions no longer have attributes. You can add this method back by using the `WithAttributes` trait. |
+| `prepareForValidation` | `prepareForValidation` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
 | `registered` | *Removed* | On v2, actions are recognised on demand instead of being registered in a service provider. |
 | `response` | *Removed* | You can now provide the controller's reponse directly in the `asController` method. Note that `htmlResponse` and `jsonResponse` still exist. |
 | `routes` | `routes` | *(static)* Same method but you need to locate your actions in a service provider for this to work (See "[Registering routes directly in the action](register-as-controller.html#registering-routes-directly-in-the-action)"). |
-| `rules` | `rules` | Same behaviour but only applies when running as a controller. |
+| `rules` | `rules` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
 | `run` | `run` | *(Static)* Same behaviour but now works only statically. You can use `$action->handle(...)` if you're looking for a non-static way to run your action. |
 | `runningAs` | *Removed* | You pattern-specific logic now live in the `asX` methods. |
-| `set` | *Removed* | Obsolete now that actions no longer have attributes. |
+| `set` | *Moved to* `WithAttributes` | Actions no longer have attributes. You can add this method back by using the `WithAttributes` trait. |
 | `user` | *Removed* | No more user helpers. If an action requires a user to work, simply pass the user as an argument. |
-| `validationData` | `getValidationData` | Same behaviour but only applies when running as a controller. |
-| `validator` | `getValidator` | Same behaviour but only applies when running as a controller. |
-| `withValidator` | `withValidator` | Same behaviour but only applies when running as a controller. |
+| *Added* | `validateAttributes` | From the optional `WithAttributes` trait. Triggers the authorization and validation logic using the action's attributes. |
+| `validationData` | `getValidationData` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
+| `validator` | `getValidator` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
+| `withValidator` | `withValidator` | Same behaviour but only applies when running as a controller or when using the `WithAttributes` trait. |
