@@ -34,7 +34,7 @@ All you need to do is add `wulfheart/laravel-actions-ide-helper` to your depende
 composer require --dev wulfheart/laravel-actions-ide-helper
 ```
 
-You can now generatoe the docs for yourself. This will generate the file `_ide_helper_actions.php` which is expected to be additionally parsed by your IDE for autocomplete.
+You can now generate the docs for yourself by running the command below. This will generate the file `_ide_helper_actions.php` which is expected to be additionally parsed by your IDE for autocomplete.
 
 ```sh
 php artisan ide-helper:actions
