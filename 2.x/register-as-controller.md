@@ -158,4 +158,17 @@ Actions::registerRoutes([
 ]);
 ```
 
+## Routes with explicit methods
+
+On some rare occasions, you might want to use the same action as more than one endpoint. In these situations, you may provide an explicit method when registering the route and that method will be used instead of the `asController` or `handle` method.
+
+This can be particularly helpful when you need to show a form that will then trigger the action.
+
+```php
+Route::get('/users/{user}/articles/create', [CreateNewArticle::class, 'showForm']);
+Route::post('/users/{user}/articles', CreateNewArticle::class);
+```
+
+Note that, when providing an explicit method, no authorization (e.g. `authorize()`) or validation (e.g. `rules()`) will be automatically triggered on that endpoint.
+
 Now that we're familiar on how to use actions as controllers, let's go one step further and see how Laravel Actions can handle [authorization and validation when being used as a controller](./add-validation-to-controllers).
