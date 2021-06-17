@@ -171,4 +171,11 @@ Route::post('/users/{user}/articles', CreateNewArticle::class);
 
 Note that, when providing an explicit method, no authorization (e.g. `authorize()`) or validation (e.g. `rules()`) will be automatically triggered on that endpoint.
 
+Also note that creating small dedicated actions for showing forms — such as `ShowNewArticleForm` — is perfectly fine and might even be a better approach depending on how you want to organise your application.
+
+```php
+Route::get('/users/{user}/articles/create', ShowNewArticleForm::class);
+Route::post('/users/{user}/articles', CreateNewArticle::class);
+```
+
 Now that we're familiar on how to use actions as controllers, let's go one step further and see how Laravel Actions can handle [authorization and validation when being used as a controller](./add-validation-to-controllers).
