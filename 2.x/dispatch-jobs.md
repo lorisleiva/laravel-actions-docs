@@ -299,7 +299,7 @@ class SendTeamReportEmail implements ShouldBeUnique
 
     public function getJobUniqueId(Team $team)
     {
-        return $this->team->id;
+        return $team->id;
     }
 
     // ...
