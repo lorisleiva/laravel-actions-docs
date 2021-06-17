@@ -17,6 +17,25 @@ class Kernel extends ConsoleKernel
 }
 ```
 
+Alternatively, you may auto-register commands by calling the `Actions::registerCommands()` method on one of your service providers. This will recursively look into the provided folders and automatically registers actions that have a signature defined.
+
+```php
+use Lorisleiva\Actions\Facades\Actions;
+
+// Register commands from actions in "app/Actions" (default).
+Actions::registerCommands();
+
+// Register commands from actions in "app/MyCustomActionsFolder".
+Actions::registerCommands('app/MyCustomActionsFolder');
+
+// Register commands from actions in multiple folders.
+Actions::registerCommands([
+    'app/Authentication',
+    'app/Billing',
+    'app/TeamManagement',
+]);
+```
+
 ## Command signature and options
 
 Next, you need to provide a command signature to your action using the `$commandSignature` property.
