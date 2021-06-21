@@ -185,9 +185,7 @@ class PublishNewArticle
     public function asController(ActionRequest $request)
     {
         $this->fillFromRequest($request);
-        $article = $this->handle($request->user());
-
-        return $this->author->articles()->create($validatedData);
+        return $this->handle($request->user());
     }
 }
 ```
