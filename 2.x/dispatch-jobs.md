@@ -45,7 +45,7 @@ class SendTeamReportEmail
 
 ### Asynchronously
 
-Dispatching jobs asynchronously can be done using the `dipatch` method.
+Dispatching jobs asynchronously can be done using the `dispatch` method.
 
 ```php
 SendTeamReportEmail::dispatch($team);
