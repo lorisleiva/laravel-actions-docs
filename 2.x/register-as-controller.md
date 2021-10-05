@@ -160,7 +160,7 @@ Actions::registerRoutes([
 
 ## Routes with explicit methods
 
-On some rare occasions, you might want to use the same action as more than one endpoint. In these situations, you may provide an explicit method when registering the route and that method will be used instead of the `asController` or `handle` method.
+On some occasions, you might want to use the same action as more than one endpoint. In these situations, you may provide an explicit method when registering the route and that method will be used instead of the `asController` or `handle` method.
 
 This can be particularly helpful when you need to show a form that will then trigger the action.
 
