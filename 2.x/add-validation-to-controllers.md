@@ -37,6 +37,21 @@ public function authorize(ActionRequest $request): bool
 }
 ```
 
+You may use the `can` method on your authenticated user or the `Gate` facade to check for specific abilities defined in Laravel.
+
+```php
+use Illuminate\Support\Facades\Gate;
+
+public function authorize(ActionRequest $request, Article $article): bool
+{
+    // Using the `can` method.
+    return $request->user()->can('update', $article);
+    
+    // Using the `Gate` facade (this allows for nullable users).
+    return Gate::check('update', $article);
+}
+```
+
 Instead of returning a boolean, you may also return gate responses to provide a more detailed response.
 
 ```php
