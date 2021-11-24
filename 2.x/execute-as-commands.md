@@ -36,22 +36,15 @@ Actions::registerCommands([
 ]);
 ```
 
-In general, you'll only need to run commands when your app is running in the console context. To avoid unecessarily auto-registering commands when in the web context, you can check to see if the app is running in the console before auto-registering.
+When registering commands that way, you might want to check that your application is running inside the console first. You may do this using `$this->app->runningInConsole()` inside your service provider.
 
 ```php
-<?php
-
-namespace App\Providers;
-
-use Illuminate\Support\ServiceProvider;
-
 class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-            // automatically load and register any App\Action\* classes that have Artisan command functionality
-            \Lorisleiva\Actions\Facades\Actions::registerCommands();
+            Actions::registerCommands();
         }
     }
 }
