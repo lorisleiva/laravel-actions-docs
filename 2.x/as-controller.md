@@ -149,7 +149,7 @@ public function authorize(ActionRequest $request): bool
 You may also return gate responses instead of booleans.
 
 ```php
-use use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\Response;
 
 public function authorize(ActionRequest $request): Response
 {
@@ -157,7 +157,7 @@ public function authorize(ActionRequest $request): Response
         return Response::deny('You must be an author to create a new article.');
     }
 
-    return Respone::allow();
+    return Response::allow();
 }
 ```
 
