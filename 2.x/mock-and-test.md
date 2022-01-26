@@ -52,9 +52,8 @@ FetchContactsFromGoogle::partialMock()
 If you prefer running first and asserting after, you may use a spy instead of a mock by using the `spy` method.
 
 ```php
-$spy = FetchContactsFromGoogle::spy()
-    ->allows('handle')
-    ->andReturn(['Loris', 'Will', 'Barney']);
+$spy = FetchContactsFromGoogle::spy();
+$spy->allows('handle')->andReturn(['Loris', 'Will', 'Barney']);
 
 // ...
 
@@ -64,12 +63,13 @@ $spy->shouldHaveReceived('handle')->with(42);
 You may also use the helper method `allowToRun` to make it slightly more readable. The code below is equivalent to the previous example.
 
 ```php
-$spy = FetchContactsFromGoogle::allowToRun()
+FetchContactsFromGoogle::allowToRun()
     ->andReturn(['Loris', 'Will', 'Barney']);
 
 // ...
 
-$spy->shouldHaveReceived('handle')->with(42);
+FetchContactsFromGoogle::spy()
+    ->shouldHaveReceived('handle')->with(42);
 ```
 
 ## Handling fake instances
