@@ -55,7 +55,7 @@ public function authorize(ActionRequest $request, Article $article): bool
 Instead of returning a boolean, you may also return gate responses to provide a more detailed response.
 
 ```php
-use use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\Response;
 
 public function authorize(ActionRequest $request): Response
 {
