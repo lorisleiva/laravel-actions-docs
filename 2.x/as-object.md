@@ -26,3 +26,17 @@ MyAction::run($someArguments);
 // Equivalent to:
 MyAction::make()->handle($someArguments);
 ```
+
+### `runIf`
+Resolves and executes the action if the condition is met.
+
+```php
+MyAction::runIf(true, $someArguments);
+```
+
+### `runUnless`
+Resolves and executes the action if some condition is not met.
+
+```php
+MyAction::runUnless(false, $someArguments);
+```
