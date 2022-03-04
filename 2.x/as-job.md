@@ -301,7 +301,7 @@ Defines the unique key when using the `ShouldBeUnique` interface. It provides th
 ```php
 public function getJobUniqueId(Team $team)
 {
-    return $this->team->id;
+    return $team->id;
 }
 ```
 
