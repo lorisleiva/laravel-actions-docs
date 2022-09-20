@@ -59,7 +59,7 @@ trait AsAction
 
 The benefits of this cherry-picking are very small — which is why the documentation focuses on the `AsAction` trait — but here they are:
 - Remove potential conflicting methods. For example, if you want to define your own `rules` method on an action that will never run as a controller.
-- Tiny (negligeable) performance improvements since we'll be looping through less patterns to identify how an action is being executed.
+- Tiny (negligible) performance improvements since we'll be looping through less patterns to identify how an action is being executed.
 - That's it...
 
 Cherry-picking can be particularly useful if you only need one slice of Laravel Actions. For example, if all you need is a way to run your plain PHP classes as controllers, then all you need to use is the `AsController` trait.
