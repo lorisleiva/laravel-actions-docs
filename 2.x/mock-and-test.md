@@ -34,6 +34,9 @@ FetchContactsFromGoogle::shouldNotRun();
 
 // Equivalent to:
 FetchContactsFromGoogle::mock()->shouldNotReceive('handle');
+
+// needed at the end to evaluate shouldNotRun
+Mockery::close();
 ```
 
 ## Partial mocking
