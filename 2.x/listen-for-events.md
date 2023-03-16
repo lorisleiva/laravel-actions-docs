@@ -28,6 +28,16 @@ Event::listen(MyEvent::class, MyAction::class);
 Event::listen('my_string_events.*', MyAction::class);
 ```
 
+## Queable Listener
+
+To make your listener queable, add `implements \Illuminate\Contracts\Queue\ShouldQueue` to your action:
+
+```php
+class MyAction implements \Illuminate\Contracts\Queue\ShouldQueue
+...
+```
+
+
 ## From listener to action
 
 As usual, you may use the `asListener` method to translate the event data into a call to your `handle` method.
