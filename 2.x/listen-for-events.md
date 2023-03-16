@@ -28,9 +28,9 @@ Event::listen(MyEvent::class, MyAction::class);
 Event::listen('my_string_events.*', MyAction::class);
 ```
 
-## Queable Listener
+## Queueable Listener
 
-To make your listener queable, add `implements \Illuminate\Contracts\Queue\ShouldQueue` to your action:
+To make your listener queueable, add `implements \Illuminate\Contracts\Queue\ShouldQueue` to your action:
 
 ```php
 class MyAction implements \Illuminate\Contracts\Queue\ShouldQueue
