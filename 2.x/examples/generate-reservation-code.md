@@ -9,7 +9,7 @@ class GenerateReservationCode
 {
     use AsAction;
 
-    const UNAMBIGUOUS_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    const UNAMBIGUOUS_ALPHABET = 'BCDFGHJLMNPRSTVWXYZ2456789';
 
     public function handle(int $characters = 7): string
     {
