@@ -28,10 +28,10 @@ This page documents these special methods that you may implement to define your 
 
 ## Authorization
 
-Just like in a `FormRequest`, you may implement the `authorize` method that returns `true` if and only if the use is authorized to see access this action.
+Just like in a `FormRequest`, you may implement the `` method that returns `true` if and only if the use is d to see access this action.
 
 ```php
-public function authorize(ActionRequest $request): bool
+public function (ActionRequest $request): bool
 {
     return $request->user()->role === 'author';
 }
@@ -42,13 +42,13 @@ You may use the `can` method on your authenticated user or the `Gate` facade to 
 ```php
 use Illuminate\Support\Facades\Gate;
 
-public function authorize(ActionRequest $request, Article $article): bool
+public function (ActionRequest $request): bool
 {
     // Using the `can` method.
-    return $request->user()->can('update', $article);
+    return $request->user()->can('update', $request->route('article'));
     
     // Using the `Gate` facade (this allows for nullable users).
-    return Gate::check('update', $article);
+    return Gate::check('update', $request->route('article'));
 }
 ```
 
@@ -57,7 +57,7 @@ Instead of returning a boolean, you may also return gate responses to provide a 
 ```php
 use Illuminate\Auth\Access\Response;
 
-public function authorize(ActionRequest $request): Response
+public function (ActionRequest $request): Response
 {
     if ($request->user()->role !== 'author') {
         return Response::deny('You must be an author to create a new article.');
