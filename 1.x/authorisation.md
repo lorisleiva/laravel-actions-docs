@@ -65,3 +65,14 @@ public function authorize()
     return $this->can('create', Article::class);
 }
 ```
+
+## Checking a Gate
+
+You may use the Gate facade directly to check for permissions. Note that we use `Gate::authorize()` and not `Gate::check()` to ensure or action returns any custom HTTP status codes specified in your policies/gates (e.g. when using `denyWithStatus()` or `denyAsNotFound()`).
+
+```php
+public function authorize(Request $request)
+{
+    return Gate::authorize('view', $request->route('article'));
+}
+```
