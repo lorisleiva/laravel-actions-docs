@@ -8,8 +8,8 @@
     "vuepress-plugin-seo": "^0.1.4"
   },
   "scripts": {
-    "dev": "vuepress dev .",
-    "build": "vuepress build .",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev .",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider vuepress build .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
