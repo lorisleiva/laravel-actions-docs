@@ -15,7 +15,7 @@ class GenerateReservationCode
     {
         do {
             $code = $this->generateCode($characters);
-        } while(Reservation::where('code', $code)->exists())
+        } while(Reservation::where('code', $code)->exists());
 
         return $code;
     }
@@ -42,7 +42,7 @@ class CreateNewReservation
             'concert_id' => $concert->id,
             'price' => $concert->getTicketPrice() * $tickets,
             'code' => GenerateReservationCode::run(),
-        ])
+        ]);
     }
 }
 ```
