@@ -338,3 +338,13 @@ public function getJobUniqueVia()
     return Cache::driver('redis');
 }
 ```
+
+### `jobFailed`
+Handle the job failure, if an exception is thrown it is passed in as the first parameter.
+
+```php
+public function jobFailed(?Throwable): void
+{
+    // Send user notification of failure, etc... 
+}
+```
