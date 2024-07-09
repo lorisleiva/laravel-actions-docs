@@ -338,3 +338,13 @@ public function getJobUniqueVia()
     return Cache::driver('redis');
 }
 ```
+
+### `jobFailed`
+Handle the job failure, if an exception is thrown it is passed in as the first arguent, the parameters the job was called with are spread into the rest of the arguments.
+
+```php
+public function jobFailed(?Throwable, ...$parameters): void
+{
+    // Send user notification of failure, etc... 
+}
+```
