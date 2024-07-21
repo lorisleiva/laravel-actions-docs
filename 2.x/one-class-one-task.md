@@ -33,7 +33,7 @@ class MyFirstAction
 }
 ```
 
-<small>Note that Laravel Actions uses a trait instead of inheritance to be as unintrusive as possible. If you prefer inheritance, you can use the equivalent `extends \Lorisleiva\Actions\Action`. If you don't prefer inheritance, you might be interested in "[More granular traits](./granular-traits)".</small>
+<small>Note that Laravel Actions uses a trait instead of inheritance to be as unintrusive as possible. If you prefer inheritance, you can use the equivalent `extends \Lorisleiva\Actions\Action`. If you don't prefer inheritance, you might be interested in "[More granular traits](./granular-traits.html)".</small>
 
 ## Running as an object
 
