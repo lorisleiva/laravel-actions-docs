@@ -33,7 +33,7 @@ class MyFirstAction
 }
 ```
 
-<small>Note that Laravel Actions uses a trait instead of inheritance to be as unintrusive as possible. If you prefer inheritance, you can use the equivalent `extends \Lorisleiva\Actions\Action`. If you don't prefer inheritance, you might be interested in "[More granular traits](./granular-traits)".</small>
+<small>Note that Laravel Actions uses a trait instead of inheritance to be as unintrusive as possible. If you prefer inheritance, you can use the equivalent `extends \Lorisleiva\Actions\Action`. If you don't prefer inheritance, you might be interested in "[More granular traits](./granular-traits.html)".</small>
 
 ## Running as an object
 
@@ -51,7 +51,7 @@ MyFirstAction::run($myArguments);
 
 No matter how you decide to instantiate your action, It is good practice to ensure it is always resolved from the container. That way:
 - You can always use dependency injection on its constructor.
-- You can replace the action with a mock on your tests (See "[Mock and test your actions](./mock-and-test)").
+- You can replace the action with a mock on your tests (See "[Mock and test your actions](./mock-and-test.html)").
 
 ## Recommended conventions
 
@@ -117,6 +117,6 @@ So far, we've only seen how to run actions as objects, but you might be wonderin
 
 Laravel Actions does that by adding a special interceptor on the container that recognise how the class is being run. When it does — and that's the important part — **it wraps your PHP class inside a decorator that will delegate to your action when it needs to**. Each design pattern has its own decorator — e.g. `ControllerDecorator`, `JobDecorator` and so on. That means you still have full control over your PHP class and need not worry about conflicts between various design patterns.
 
-Check out the "[How does it work?](./how-does-it-work)" page if you're interested in learning more about this.
+Check out the "[How does it work?](./how-does-it-work.html)" page if you're interested in learning more about this.
 
-Now, let's move on to [controllers](./register-as-controller).
+Now, let's move on to [controllers](./register-as-controller.html).
