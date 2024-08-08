@@ -339,6 +339,23 @@ public function getJobUniqueVia()
 }
 ```
 
+### `$jobDeleteWhenMissingModels`
+Same as `getJobDeleteWhenMissingModels` but as a property.
+
+```php
+public bool $jobDeleteWhenMissingModels = true;
+```
+
+### `getJobDeleteWhenMissingModels`
+Defines whether to automatically delete jobs with missing models.
+
+```php
+public function getJobDeleteWhenMissingModels(): bool
+{
+    return true;
+}
+```
+
 ### `jobFailed`
 Handle the job failure, if an exception is thrown it is passed in as the first arguent, the parameters the job was called with are spread into the rest of the arguments.
 
