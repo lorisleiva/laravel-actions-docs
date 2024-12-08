@@ -172,10 +172,10 @@ class SendTeamReportEmail
 ```
 
 ### `getJobMiddleware`
-Adds job middleware directly in the action.
+Adds job middleware directly in the action. The parameters are passed in but note that they are in an array.
 
 ```php
-public function getJobMiddleware(): array
+public function getJobMiddleware(array $parameters): array
 {
     return [new RateLimited('reports')];
 }
