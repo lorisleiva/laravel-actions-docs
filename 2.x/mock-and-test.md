@@ -36,6 +36,17 @@ FetchContactsFromGoogle::shouldNotRun();
 FetchContactsFromGoogle::mock()->shouldNotReceive('handle');
 ```
 
+The helper method `shouldExpect` is the same as `shouldRun` but adds the expection that `handle` will be called once and only once.
+
+```php
+FetchContactsFromGoogle::shouldExpect();
+
+// Equivalent to:
+FetchContactsFromGoogle::shouldRun()->once();
+// And:
+FetchContactsFromGoogle::mock()->expects('handle');
+```
+
 ## Partial mocking
 
 If you only want to mock the methods that have expectations, you may use the `partialMock` method instead. In the example below, only the `fetch` method will be mocked.

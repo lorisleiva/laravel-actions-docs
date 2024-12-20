@@ -60,6 +60,18 @@ FetchContactsFromGoogle::shouldNotRun();
 FetchContactsFromGoogle::mock()->shouldNotReceive('handle');
 ```
 
+### `shouldExpect`
+Helper method adding an expectation on the `handle` method.
+
+```php
+FetchContactsFromGoogle::shouldExpect();
+
+// Equivalent to:
+FetchContactsFromGoogle::shouldRun()->once();
+// And:
+FetchContactsFromGoogle::mock()->expects('handle');
+```
+
 ### `allowToRun`
 Helper method allowing the `handle` method on a spy.
 
