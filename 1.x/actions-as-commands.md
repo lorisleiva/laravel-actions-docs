@@ -55,7 +55,7 @@ class PublishANewArticle extends Action
 {
     protected static $commandSignature = 'make:article';
 
-    public function asCommand(Command $command)
+    public function asCommand(Command $command): void
     {
         $this->title = $command->ask('What is the title?');
         $this->published_at = $command->confirm('Publish immediately?') ? now() : null;
@@ -87,7 +87,7 @@ By default, the returned value of the `handle` method will be dumped in the cons
 You may customise what you want to display to the console after executing the action by overriding the `consoleOutput` method. The returned value of the `handle` method is given as the first argument. The command object is available as the second argument.
 
 ```php
-public function consoleOutput($article, Command $command)
+public function consoleOutput($article, Command $command): void
 {
     $command->line("Success! You've published the article \"{$article->title}\".");
 }
@@ -96,7 +96,7 @@ public function consoleOutput($article, Command $command)
 Any value returned by the `consoleOutput` method will be used as an exit code.
 
 ```php
-public function consoleOutput($article, Command $command)
+public function consoleOutput($article, Command $command): int
 {
     return 42;
 }

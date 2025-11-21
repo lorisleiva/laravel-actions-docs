@@ -129,7 +129,7 @@ class GetDirectionsToRestaurant
 
     protected GoogleMapsService $googleMaps;
 
-    public function __construct(GoogleMapsService $googleMaps)
+    public function __construct(GoogleMapsService $googleMaps): void
     {
         $this->googleMaps = $googleMaps;
     }
@@ -185,7 +185,7 @@ class CreateNewArticle
         ]);
     }
 
-    public function asCommand(Command $command): Article
+    public function asCommand(Command $command): void
     {
         $article = $this->handle(
             User::findOrFail($command->argument('user_id')),

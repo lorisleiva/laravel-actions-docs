@@ -41,7 +41,7 @@ class GetUserProfile
         return view('users.show', compact('user'));
     }
 
-    public function jsonResponse(User $user)
+    public function jsonResponse(User $user): UserProfileResource
     {
         return new UserProfileResource($user);
     }

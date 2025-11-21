@@ -13,7 +13,7 @@ The page "[The lifecycle of an action](./action-lifecycle.html)" provides a hand
 Actions can define their authorisation logic using the `authorize` method. It should return a boolean indicating if we are authorised to execute this action.
 
 ```php
-public function authorize()
+public function authorize(): bool
 {
     // Your authorisation logic here...
 }
@@ -41,7 +41,7 @@ protected function failedAuthorization()
 If you want to access the authenticated user from an action you can simply use the `user` method.
 
 ```php
-public function authorize()
+public function authorize(): bool
 {
     return $this->user()->isAdmin();
 }
@@ -60,7 +60,7 @@ $action->actingAs($admin)->run();
 If you’d still like to use Gates and Policies to externalise your authorisation logic, you can use the `can` helper method to verify that the user can perform the provided ability.
 
 ```php
-public function authorize()
+public function authorize(): bool
 {
     return $this->can('create', Article::class);
 }

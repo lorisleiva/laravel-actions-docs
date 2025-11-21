@@ -232,7 +232,7 @@ When dispatching jobs in batch, you might want to access the `$batch` instance f
 ```php
 use Illuminate\Bus\Batch;
 
-public function asJob(?Batch $batch, Team $team)
+public function asJob(?Batch $batch, Team $team): void
 {
     if ($batch && $batch->cancelled()) {
         return;
@@ -247,7 +247,7 @@ Note that you may also inject the `JobDecorator` instead of the `?Batch` if you 
 ```php
 use Lorisleiva\Actions\Decorators\JobDecorator;
 
-public function asJob(JobDecorator $job, Team $team)
+public function asJob(JobDecorator $job, Team $team): void
 {
     if ($job->batch() && $job->batch()->cancelled()) {
         return;
@@ -270,7 +270,7 @@ class SendTeamReportEmail implements ShouldQueue, ShouldBeUnique
     public Team $team;
     public int $uniqueFor = 3600;
 
-    public function uniqueId()
+    public function uniqueId(): int
     {
         return $this->team->id;
     }
@@ -297,7 +297,7 @@ class SendTeamReportEmail implements ShouldBeUnique
 
     public int $jobUniqueFor = 3600;
 
-    public function getJobUniqueId(Team $team)
+    public function getJobUniqueId(Team $team): int
     {
         return $team->id;
     }

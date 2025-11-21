@@ -23,7 +23,7 @@ public function handle()
 If you want to execute some code only when the action is running as a certain type, you can use the before hooks `asObject`, `asJob`, `asListener`, `asController` and `asCommand`.
 
 ```php
-public function asController(Request $request)
+public function asController(Request $request): void
 {
     $this->token = $request->cookie('token');
 }

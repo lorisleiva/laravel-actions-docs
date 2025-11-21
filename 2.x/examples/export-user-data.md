@@ -25,7 +25,7 @@ class ExportUserData
         return [
             'profile' => $user->toArray(),
             'articles' => $user->articles->toArray(),
-        ]
+        ];
     }
 }
 ```

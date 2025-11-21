@@ -16,7 +16,7 @@ You can define your custom logic of how to get attributes from the constructor b
 ```php
 class PublishANewArticle extends Action
 {
-    public function getAttributesFromConstructor($title, $body)
+    public function getAttributesFromConstructor($title, $body): array
     {
         return compact('title', 'body');
     }
@@ -45,7 +45,7 @@ class PublishANewArticle extends Action
 {
     protected $getAttributesFromConstructor = true;
 
-    public function handle($title, $body)
+    public function handle($title, $body): void
     {
         // ...
     }

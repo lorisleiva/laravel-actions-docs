@@ -7,7 +7,7 @@ As you can see in the following example, you can use another action as an object
 ```php
 class CreateNewRestaurant extends Action
 {
-    public function handle()
+    public function handle(): Restaurant
     {
         $coordinates = FetchGoogleMapsCoordinates::run([
             'address' => $this->address,

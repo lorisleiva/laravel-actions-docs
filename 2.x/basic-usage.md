@@ -9,7 +9,7 @@ namespace App\Authentication\Actions;
 
 class UpdateUserPassword
 {
-    public function handle(User $user, string $newPassword)
+    public function handle(User $user, string $newPassword): void
     {
         $user->password = Hash::make($newPassword);
         $user->save();
@@ -28,7 +28,7 @@ class UpdateUserPassword
 {
     use AsAction;
 
-    public function handle(User $user, string $newPassword)
+    public function handle(User $user, string $newPassword): void
     {
         $user->password = Hash::make($newPassword);
         $user->save();
@@ -55,7 +55,7 @@ class MySecurityService
 {
     protected UpdateUserPassword $updatePassword;
 
-    public function __construct(UpdateUserPassword $updatePassword)
+    public function __construct(UpdateUserPassword $updatePassword): void
     {
         $this->updatePassword = $updatePassword;
     }
@@ -77,13 +77,13 @@ class UpdateUserPassword
 {
     use AsAction;
 
-    public function handle(User $user, string $newPassword)
+    public function handle(User $user, string $newPassword): void
     {
         $user->password = Hash::make($newPassword);
         $user->save();
     }
 
-    public function asController(Request $request)
+    public function asController(Request $request): Response
     {
         $this->handle(
             $request->user(), 
@@ -112,7 +112,7 @@ class UpdateUserPassword
 
     // ...
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'current_password' => ['required'],
@@ -120,7 +120,7 @@ class UpdateUserPassword
         ];
     }
 
-    public function withValidator(Validator $validator, ActionRequest $request)
+    public function withValidator(Validator $validator, ActionRequest $request): void
     {
         $validator->after(function (Validator $validator) use ($request) {
             if (! Hash::check($request->get('current_password'), $request->user()->password)) {
@@ -129,7 +129,7 @@ class UpdateUserPassword
         });
     }
 
-    public function asController(ActionRequest $request)
+    public function asController(ActionRequest $request): Response
     {
         $this->handle(
             $request->user(), 
@@ -159,7 +159,7 @@ class UpdateUserPassword
     public string $commandSignature = 'user:update-password {user_id} {password}';
     public string $commandDescription = 'Updates the password a user.';
 
-    public function asCommand(Command $command)
+    public function asCommand(Command $command): void
     {
         $user = User::findOrFail($command->argument('user_id'));
 

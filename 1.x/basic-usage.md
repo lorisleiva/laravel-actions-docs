@@ -6,12 +6,12 @@ Create your first action using `php artisan make:action PublishANewArticle` and 
 // app/Actions/PublishANewArticle.php
 class PublishANewArticle extends Action
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return $this->user()->hasRole('author');
     }
     
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => 'required',
@@ -19,7 +19,7 @@ class PublishANewArticle extends Action
         ];
     }
     
-    public function handle()
+    public function handle(): Article
     {
         return Article::create($this->validated());
     }
@@ -56,7 +56,7 @@ class ProductCreated
     public $title;
     public $body;
     
-    public function __construct($title, $body)
+    public function __construct($title, $body): void
     {
         $this->title = $title;
         $this->body = $body;
@@ -81,7 +81,7 @@ class PublishANewArticle extends Action
 {
     // ...
     
-    public function response($article)
+    public function response($article): Response
     {
         return redirect()->route('article.show', $article);
     }
