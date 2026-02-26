@@ -55,7 +55,7 @@ $article = PublishANewArticle::dispatchNow([
 You can register job middleware using the `middleware` method.
 
 ```php
-public function middleware()
+public function middleware(): array
 {
     return [new RateLimited];
 }

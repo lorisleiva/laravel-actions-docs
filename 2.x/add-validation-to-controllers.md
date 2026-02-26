@@ -3,7 +3,7 @@
 One way to add validation to your controllers is to inject a `FormRequest` in your `asController` method just as you would do in a controller.
 
 ```php
-public function asController(MyFormRequest $request)
+public function asController(MyFormRequest $request): void
 {
     // Authorization and validation defined in MyFormRequest was successful.
 }
@@ -18,7 +18,7 @@ An `ActionRequest` is a special `FormRequest` class that allows you to **define 
 ```php
 use Lorisleiva\Actions\ActionRequest;
 
-public function asController(ActionRequest $request)
+public function asController(ActionRequest $request): void
 {
     // Authorization and validation defined in this class was successful.
 }
@@ -93,7 +93,7 @@ public function rules(): array
 You may then use the `validated` method inside your `asController` method to access the request data that went through your validation rules.
 
 ```php
-public function asController(ActionRequest $request)
+public function asController(ActionRequest $request): void
 {
     $request->validated();
 }

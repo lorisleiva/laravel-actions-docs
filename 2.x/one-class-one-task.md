@@ -21,12 +21,12 @@ class MyFirstAction
 
     protected MyInjectedService $service;
 
-    public function __construct(MyInjectedService $service)
+    public function __construct(MyInjectedService $service): void
     {
         $this->service = $service;
     }
 
-    public function handle(...$someArguments)
+    public function handle(...$someArguments): void
     {
         // Your action logic here...
     }

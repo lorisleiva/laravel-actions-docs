@@ -26,7 +26,7 @@ class ProductCreated
 // Listener
 class PublishANewArticle extends Action
 {
-    public function getAttributesFromEvent($event)
+    public function getAttributesFromEvent($event): array
     {
         return [
             'title' => '[New product] ' . $event->product->name,
@@ -48,7 +48,7 @@ event('product_created', ['My SaaS app', 'Lorem ipsum']);
 // Listener
 class PublishANewArticle extends Action
 {
-    public function getAttributesFromEvent($title, $description)
+    public function getAttributesFromEvent($title, $description): array
     {
         return [
             'title' => "[New product] $title",

@@ -7,7 +7,7 @@ By default, all input data from the request and the route parameters will be use
 You can change this behaviour by overriding the `getAttributesFromRequest` method. This is its default implementation:
 
 ```php
-public function getAttributesFromRequest(Request $request)
+public function getAttributesFromRequest(Request $request): array
 {
     return array_merge(
         $this->getAttributesFromRoute($request),
@@ -23,7 +23,7 @@ That means in case of conflict, you can access the route parameter as a method a
 ```php
 // Route endpoint: PATCH /comments/{comment}
 // Request input: ['comment' => 'My updated comment']
-public function handle(Comment $comment)
+public function handle(Comment $comment): void
 {
     $comment;        // <- Comment instance matching the given id.
     $this->comment;  // <- 'My updated comment'
@@ -101,7 +101,7 @@ See the "[Registering actions](./registering-actions.html)" page for more detail
 You can register middleware using the `middleware` method.
 
 ```php
-public function middleware()
+public function middleware(): array
 {
     return ['auth'];
 }

@@ -15,7 +15,7 @@ Just like in a Laravel FormRequest, you can define your validation logic using t
 The `rules` method enables you to list validation rules for your action's attributes.
 
 ```php
-public function rules()
+public function rules(): array
 {
     return [
         'title' => ['required'],
@@ -27,7 +27,7 @@ public function rules()
 The `withValidator` method provide a convenient way to add custom validation logic.
 
 ```php
-public function withValidator($validator)
+public function withValidator($validator): void
 {
     $validator->after(function ($validator) {
         if ($this->somethingElseIsInvalid()) {
@@ -55,7 +55,7 @@ It is worth noting that, just like the `handle` method, the `rules`, `withValida
 If you want to validate some data directly within the `handle` method, you can use the `validate` method.
 
 ```php
-public function handle()
+public function handle(): void
 {
     $this->validate([
         'comment' => ['required', 'min:10', 'spamfree'],
@@ -83,12 +83,12 @@ protected function failedValidation()
 If you want to access all attributes that have been validated prior to reaching the `handle` method, you can use `$this->validated()` instead of `$this->all()`.
 
 ```php
-public function rules()
+public function rules(): array
 {
     return ['title' => 'min:3'];
 }
 
-public function handle()
+public function handle(): void
 {
     // Will only return attributes that have been validated by the rules above.
     $this->validated();
@@ -100,12 +100,12 @@ public function handle()
 You can customise the validation texts using the `messages` and `attributes` methods.
 
 ```php
-public function messages()
+public function messages(): array
 {
     return [];
 }
 
-public function attributes()
+public function attributes(): array
 {
     return [];
 }

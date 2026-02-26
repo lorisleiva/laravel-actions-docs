@@ -17,7 +17,7 @@ class UpdateUserPassword
 {
     use AsAction;
 
-    public function handle(User $user, string $newPassword)
+    public function handle(User $user, string $newPassword): void
     {
         // ...
     }

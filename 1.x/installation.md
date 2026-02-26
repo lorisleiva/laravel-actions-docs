@@ -26,7 +26,7 @@ class MyFirstAction extends Action
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -36,7 +36,7 @@ class MyFirstAction extends Action
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
@@ -46,7 +46,7 @@ class MyFirstAction extends Action
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         // Execute the action.
     }

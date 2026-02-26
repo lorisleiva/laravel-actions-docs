@@ -313,7 +313,7 @@ public function getJobTags(Team $team): array
 Defines the unique key when using the `ShouldBeUnique` interface. It provides the same arguments as the `asJob` method.
 
 ```php
-public function getJobUniqueId(Team $team)
+public function getJobUniqueId(Team $team): int
 {
     return $team->id;
 }
@@ -330,7 +330,7 @@ public string $jobUniqueId = 'some_static_key';
 Define the amount of time in which a job should stay unique when using the `ShouldBeUnique` interface. It provides the same arguments as the `asJob` method.
 
 ```php
-public function getJobUniqueFor(Team $team)
+public function getJobUniqueFor(Team $team): int
 {
     return $this->team->role === 'premium' ? 1800 : 3600;
 }

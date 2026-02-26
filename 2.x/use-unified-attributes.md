@@ -72,7 +72,7 @@ $action->title = 'My blog post';               // Set an attribute.
 The `WithAttributes` trait also provides a `validateAttributes` method that you can use at any time to trigger the authorization and validation of your attributes. This method returns the validated data if you need it.
 
 ```php
-public function handle(array $attributes = [])
+public function handle(array $attributes = []): void
 {
     $this->fill($attributes);
     $validatedData = $this->validateAttributes();
@@ -107,14 +107,14 @@ class MyAction
     use AsAction;
     use WithAttributes;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             // ...
         ];
     }
 
-    public function asController(ActionRequest $request)
+    public function asController(ActionRequest $request): void
     {
         // Even though we provided some rules, the $request will 
         // not be validated since we're using unified attributed.
@@ -161,20 +161,20 @@ class PublishNewArticle
     use AsAction;
     use WithAttributes;
 
-    public function authorize()
+    public function authorize(): bool
     {
         return $this->author->can('publish-new-articles');
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => ['required'],
             'body' => ['required', 'min:100'],
-        ]
+        ];
     }
 
-    public function handle(User $author, array $attributes = [])
+    public function handle(User $author, array $attributes = []): Article
     {
         $this->set('author', $author)->fill($attributes);
         $validatedData = $this->validateAttributes();
@@ -182,7 +182,7 @@ class PublishNewArticle
         return $this->author->articles()->create($validatedData);
     }
 
-    public function asController(ActionRequest $request)
+    public function asController(ActionRequest $request): Article
     {
         $this->fillFromRequest($request);
         return $this->handle($request->user());
