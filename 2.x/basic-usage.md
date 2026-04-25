@@ -191,8 +191,8 @@ class Kernel extends ConsoleKernel
 
 Hopefully, this little tutorial helped to see what this package can achieve for you. On top of controllers and commands, Laravel Actions also supports jobs and listeners following the same conventions — by implementing the `asJob` and `asListener` methods.
 
-Better yet, **your custom PHP class is never directly used as a controller, job, command or listener**. Instead, it is wrapped in an appropriate decorator based on what it is running as. This means you have full control of your actions and you don't need to worry about cross-pattern conflicts (See "[How does it work?](./how-does-it-work)").
+Better yet, **your custom PHP class is never directly used as a controller, job, command or listener**. Instead, it is wrapped in an appropriate decorator based on what it is running as. This means you have full control of your actions and you don't need to worry about cross-pattern conflicts (See "[How does it work?](./how-does-it-work.html)").
 
-If you like learning by reading code, the "[Learn with examples](./examples/generate-reservation-code)" section is for you. Each example provides the code of one action, how it's being used or registered and a brief description explaining its purpose.
+If you like learning by reading code, the "[Learn with examples](./examples/generate-reservation-code.html)" section is for you. Each example provides the code of one action, how it's being used or registered and a brief description explaining its purpose.
 
-Be sure to also check the "[Guide](./one-class-one-task)" and "[References](./as-object)" sections to gain more knowledge on what you can do with actions and to refer back to methods made available to you.
+Be sure to also check the "[Guide](./one-class-one-task.html)" and "[References](./as-object.html)" sections to gain more knowledge on what you can do with actions and to refer back to methods made available to you.
